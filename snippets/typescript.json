@@ -1,0 +1,54 @@
+{
+  "sbinit": {
+    "prefix": "sbinit",
+    "body": [
+"import { fn } from '@storybook/test';
+import type { Meta, StoryObj } from '@storybook/react';
+
+import { ${1} } from './${1}';
+
+const meta: Meta = {
+    title: 'Example/${1}',
+    component: ${1},
+    parameters: {},
+    tags: ['autodocs'],
+    // More on argTypes: https://storybook.js.org/docs/api/argtypes
+    argTypes: {},
+    // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
+    args: {},
+};
+
+export default meta;
+
+type Story = StoryObj<typeof ${1}>;
+
+export const Default: Story = {
+    args: {},
+};"],
+    "description": "Storybook Initial setup"
+  },
+  "jtest": {
+    "prefix": "jtest",
+    "body": [],
+    "description": "Jest Test setup"
+  },
+  "reactFunctionComponentTypeScript": {
+    "prefix": "rfct",
+    "body": [
+"import React from 'react'
+
+type ${TM_FILENAME_BASE}Props = {}
+      
+export const ${TM_FILENAME_BASE}:React.FC<${TM_FILENAME_BASE}Props> = (props) => {
+  return (
+    <div>
+      $0
+    </div>
+  )
+}
+
+export default ${TM_FILENAME_BASE}
+      "],
+    "description": "Creates a React functional component without PropTypes"
+  }
+}
