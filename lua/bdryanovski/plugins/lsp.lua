@@ -4,17 +4,15 @@ return {
 	dependencies = {
 		"saghen/blink.cmp",
 		"hrsh7th/cmp-nvim-lsp",
-		{ "weilbith/nvim-code-action-menu" },
+		"ibhagwan/fzf-lua",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 	},
 	config = function()
 		-- import lspconfig plugin
 		local lspconfig = require("lspconfig")
 		local navic = require("nvim-navic")
+		local fzf_lua = require("fzf-lua")
 
-		-- import cmp-nvim-lsp plugin
-		-- local cmp_nvim_lsp = require("cmp_nvim_lsp")
-		--
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("setup-lsp-attach", { clear = true }),
 			callback = function(event)
@@ -24,15 +22,17 @@ return {
 				end
 
 				map("gD", vim.lsp.buf.declaration, "Go to declaration")
-				map("gd", vim.lsp.buf.definition, "Go to definition")
+				map("gd", fzf_lua.lsp_definitions, "Go to definition")
 				map("K", vim.lsp.buf.hover, "Hover documentation")
-				map("gi", vim.lsp.buf.implementation, "Go to implementation")
+				map("gi", fzf_lua.lsp_implementations, "Go to implementation")
 				map("<C-k>", vim.lsp.buf.signature_help, "Signature help")
 
-				map("gr", vim.lsp.buf.references, "Show LSP references")
-				map("rn", vim.lsp.buf.rename, "Smart rename")
-				map("<leader>ca", "<cmd>CodeActionMenu<CR>", "See available code actions", { "n", "v" })
-				map("<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", "Show buffer/file diagnostics")
+				map("gr", fzf_lua.lsp_references, "Show LSP references")
+
+				-- Use fzf-lua for code actions
+				map("<leader>ca", fzf_lua.lsp_code_actions, "See available code actions", { "n", "v" })
+
+				map("<leader>D", fzf_lua.diagnostics_document, "Show buffer/file diagnostics")
 				map("<leader>d", vim.diagnostic.open_float, "Show line diagnostics")
 				map("[d", vim.diagnostic.goto_prev, "Go to previous diagnostic")
 				map("]d", vim.diagnostic.goto_next, "Go to next diagnostic")
@@ -88,8 +88,6 @@ return {
 
 				-- The following code creates a keymap to toggle inlay hints in your
 				-- code, if the language server you are using supports them
-				--
-				-- This may be unwanted, since they displace some of your code
 				if
 					client
 					and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
@@ -101,100 +99,9 @@ return {
 			end,
 		})
 
-		-- local keymap = vim.keymap -- for conciseness
-		--
-		-- local opts = { noremap = true, silent = true }
-		-- local on_attach = function(client, bufnr)
-		-- 	if client.server_capabilities.documentSymbolProvider then
-		-- 		navic.attach(client, bufnr)
-		-- 	end
-		--
-		-- 	opts.buffer = bufnr
-		--
-		-- 	-- set keybinds
-		-- 	opts.desc = "Show LSP references"
-		-- 	keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
-		--
-		-- 	-- opts.desc = "Go to declaration"
-		-- 	-- keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
-		-- 	--
-		-- 	-- opts.desc = "Show LSP definitions"
-		-- 	-- keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
-		-- 	-- --
-		-- 	-- opts.desc = "Show LSP implementations"
-		-- 	-- keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
-		-- 	--
-		-- 	opts.desc = "Show LSP type definitions"
-		-- 	keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
-		--
-		-- 	opts.desc = "See available code actions"
-		-- 	-- keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
-		--
-		-- 	keymap.set({ "n", "v" }, "<leader>ca", "<cmd>CodeActionMenu<CR>", opts) -- see available code actions, in visual mode will apply to selection
-		--
-		-- 	opts.desc = "Smart rename"
-		-- 	keymap.set("n", "<leader>rn", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts) -- smart rename
-
-		-- 	opts.desc = "Show buffer diagnostics"
-		-- 	keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
-		--
-		-- 	opts.desc = "Show line diagnostics"
-		-- 	keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
-		--
-		-- 	opts.desc = "Go to previous diagnostic"
-		-- 	keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
-		--
-		-- 	opts.desc = "Go to next diagnostic"
-		-- 	keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
-		--
-		-- 	opts.desc = "Show documentation for what is under cursor"
-		-- 	keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
-		--
-		-- 	opts.desc = "Restart LSP"
-		-- 	keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
-		-- end
-		--
-		-- used to enable autocompletion (assign to every lsp server config)
-		-- local capabilities = cmp_nvim_lsp.default_capabilities()
 		local original_capabilities = vim.lsp.protocol.make_client_capabilities()
 		local capabilities = require("blink.cmp").get_lsp_capabilities(original_capabilities)
 
-		-- capabilities.textDocument.foldingRange = {
-		-- 	dynamicRegistration = false,
-		-- 	lineFoldingOnly = true,
-		-- }
-		--
-		-- -- Code actions
-		-- vim.g.code_action_menu_show_details = false
-		-- vim.g.code_action_menu_show_diff = true
-		-- vim.g.code_action_menu_show_action_kind = false
-
-		-- capabilities.textDocument.codeAction = {
-		-- 	dynamicRegistration = false,
-		-- 	codeActionLiteralSupport = {
-		-- 		codeActionKind = {
-		-- 			valueSet = {
-		-- 				"",
-		-- 				"quickfix",
-		-- 				"refactor",
-		-- 				"refactor.extract",
-		-- 				"refactor.inline",
-		-- 				"refactor.rewrite",
-		-- 				"source",
-		-- 				"source.organizeImports",
-		-- 			},
-		-- 		},
-		-- 	},
-		-- }
-
-		-- Change the Diagnostic symbols in the sign column (gutter)
-		-- (not in youtube nvim video)
-		-- local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-		-- for type, icon in pairs(signs) do
-		-- 	local hl = "DiagnosticSign" .. type
-		-- 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-		-- end
-		--
 		local lsp_flags = {
 			debounce_text_changes = 150,
 		}
@@ -202,13 +109,11 @@ return {
 		-- configure html server
 		lspconfig["html"].setup({
 			capabilities = capabilities,
-			-- on_attach = on_attach,
 		})
 
 		-- configure typescript server with plugin
 		lspconfig["ts_ls"].setup({
 			capabilities = capabilities,
-			-- on_attach = on_attach,
 			flags = lsp_flags,
 			server = {
 				settings = {
@@ -287,32 +192,27 @@ return {
 		-- configure css server
 		lspconfig["cssls"].setup({
 			capabilities = capabilities,
-			-- on_attach = on_attach,
 		})
 
 		-- configure tailwindcss server
 		lspconfig["tailwindcss"].setup({
 			capabilities = capabilities,
-			-- on_attach = on_attach,
 		})
 
 		-- configure prisma orm server
 		lspconfig["prismals"].setup({
 			capabilities = capabilities,
-			-- on_attach = on_attach,
 		})
 
 		-- configure graphql language server
 		lspconfig["graphql"].setup({
 			capabilities = capabilities,
-			-- on_attach = on_attach,
 			filetypes = { "graphql", "gql", "typescriptreact", "javascriptreact" },
 		})
 
 		-- configure lua server (with special settings)
 		lspconfig["lua_ls"].setup({
 			capabilities = capabilities,
-			-- on_attach = on_attach,
 			settings = { -- custom settings for lua
 				Lua = {
 					completion = {
