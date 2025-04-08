@@ -278,27 +278,4 @@ return {
 			require("noice").setup(opts)
 		end,
 	},
-	{
-		"rcarriga/nvim-notify",
-		keys = {
-			{
-				"<leader>un",
-				function()
-					require("notify").dismiss({ silent = true, pending = true })
-				end,
-				desc = "Dismiss all Notifications",
-			},
-		},
-		opts = {
-			timeout = 300,
-			-- background_colour = "#000000",
-			fps = 60,
-			render = "minimal",
-			level = vim.log.levels.OFF,
-			top_down = true,
-		},
-		init = function()
-			vim.notify = require("notify")
-		end,
-	},
 }
