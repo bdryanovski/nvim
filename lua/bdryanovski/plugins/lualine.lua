@@ -40,7 +40,7 @@ return {
 				lualine_b = { "branch", "diff", "diagnostics" },
 				lualine_c = {}, --[[ { "filename" }, ]]
 				lualine_x = {}, --[[ { "encoding", { "filetype", colored = true, icon_only = true } }, ]]
-				lualine_y = { "progress" },
+				lualine_y = {}, -- { "progress" },
 				lualine_z = {
 					{ "location", separator = { right = "" }, left_padding = 2 },
 				},
