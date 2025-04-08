@@ -9,5 +9,6 @@ end
 require("bdryanovski.base")
 require("bdryanovski.base.autocmd")
 require("bdryanovski.base.mapping")
+require("bdryanovski.base.nvim11")
 require("bdryanovski.lazy")
 require("bdryanovski.neovide")
