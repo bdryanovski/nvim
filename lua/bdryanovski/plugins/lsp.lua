@@ -13,6 +13,12 @@ return {
 		local navic = require("nvim-navic")
 		local fzf_lua = require("fzf-lua")
 
+		local on_attach = function(client, bufnr)
+			if client.server_capabilities.documentSymbolProvider then
+				navic.attach(client, bufnr)
+			end
+		end
+
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("setup-lsp-attach", { clear = true }),
 			callback = function(event)
@@ -114,6 +120,7 @@ return {
 		-- configure typescript server with plugin
 		lspconfig["ts_ls"].setup({
 			capabilities = capabilities,
+			on_attach = on_attach,
 			flags = lsp_flags,
 			server = {
 				settings = {
