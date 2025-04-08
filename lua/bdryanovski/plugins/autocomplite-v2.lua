@@ -122,7 +122,7 @@ return {
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer" },
-			-- cmdline = {}, -- Disable sources for command-line mode
+			cmdline = {}, -- Disable sources for command-line mode
 			providers = {
 				git = {
 					module = "blink-cmp-git",
