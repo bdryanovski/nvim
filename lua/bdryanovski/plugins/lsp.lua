@@ -13,6 +13,8 @@ return {
 		local navic = require("nvim-navic")
 		local fzf_lua = require("fzf-lua")
 
+		local util = require("lspconfig.util")
+
 		local on_attach = function(client, bufnr)
 			if client.server_capabilities.documentSymbolProvider then
 				navic.attach(client, bufnr)
@@ -149,53 +151,19 @@ return {
 				},
 			},
 		})
-
-		lspconfig["eslint"].setup({
-			capabilities = capabilities,
-			on_attach = function(client, bufnr)
-				client.server_capabilities.documentFormattingProvider = true
-				local function buf_set_option(...)
-					vim.api.nvim_buf_set_option(bufnr, ...)
-				end
-
-				buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
-				-- eslint fix on save
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					buffer = bufnr,
-					command = "EslintFixAll",
-				})
-			end,
-			settings = {
-				codeAction = {
-					disableRuleComment = {
-						enable = true,
-						location = "separateLine",
-					},
-					showDocumentation = {
-						enable = true,
-					},
-				},
-				codeActionOnSave = {
-					enable = false,
-					mode = "all",
-				},
-				format = true,
-				nodePath = "",
-				problems = {
-					shortenToSingleLine = false,
-				},
-				quiet = false,
-				rulesCustomizations = {},
-				run = "onType",
-				useESLintClass = false,
-				validate = "on",
-				workingDirectory = {
-					mode = "location",
-				},
-			},
-		})
-
+		--
+		-- lspconfig["eslint"].setup({
+		-- 	capabilities = capabilities,
+		-- 	root_dir = function(fname)
+		-- 		local root =
+		-- 			util.root_pattern(".eslintrc.js", ".eslintrc.json", "eslint.config.js", "package.json")(fname)
+		-- 		if root then
+		-- 			return root
+		-- 		end
+		-- 		return nil -- don’t start if no config found
+		-- 	end,
+		-- })
+		--
 		-- configure css server
 		lspconfig["cssls"].setup({
 			capabilities = capabilities,

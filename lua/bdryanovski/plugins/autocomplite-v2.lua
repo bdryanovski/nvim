@@ -123,6 +123,9 @@ return {
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer" },
 			-- cmdline = {}, -- Disable sources for command-line mode
+			per_filetype = {
+				sql = { "snippets", "dadbod", "buffer" },
+			},
 			providers = {
 				git = {
 					module = "blink-cmp-git",
@@ -145,6 +148,7 @@ return {
 					min_keyword_length = 5,
 					max_items = 5,
 				},
+				dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
 			},
 		},
 
