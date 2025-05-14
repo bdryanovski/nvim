@@ -6,9 +6,16 @@ if vim.opt.termguicolors then
 	vim.opt.termguicolors = true
 end
 
+-- Global variables.
+vim.g.projects_dir = vim.env.HOME .. "/Projects"
+
+vim.g.github_projects_dir = vim.env.HOME .. "/Github"
+vim.g.work_projects_dir = vim.env.HOME .. "/Manual"
+
+require("navbar")
+
 require("bdryanovski.base")
 require("bdryanovski.base.autocmd")
 require("bdryanovski.base.mapping")
-require("bdryanovski.base.nvim11")
 require("bdryanovski.lazy")
 require("bdryanovski.neovide")

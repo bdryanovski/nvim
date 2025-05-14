@@ -10,6 +10,15 @@ return {
 		},
 	},
 
+	event = { "InsertEnter" },
+
+	config = function(_, opts)
+		require("blink.cmp").setup(opts)
+
+		-- Extend neovim's client capabilities with the completion ones.
+		vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities(nil, true) })
+	end,
+
 	-- use a release tag to download pre-built binaries
 	version = "1.*",
 	-- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
@@ -57,7 +66,7 @@ return {
 			accept = { auto_brackets = { enabled = true } },
 			-- range = "full",
 			list = {
-				max_items = 200,
+				max_items = 10,
 				selection = { preselect = true, auto_insert = true },
 			},
 

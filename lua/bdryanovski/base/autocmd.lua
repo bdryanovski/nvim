@@ -22,18 +22,13 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 
 -- go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
-	group = augroup("last_loc"),
-	callback = function(event)
-		local exclude = { "gitcommit" }
-		local buf = event.buf
-		if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].lazyvim_last_loc then
-			return
-		end
-		vim.b[buf].lazyvim_last_loc = true
-		local mark = vim.api.nvim_buf_get_mark(buf, '"')
-		local lcount = vim.api.nvim_buf_line_count(buf)
-		if mark[1] > 0 and mark[1] <= lcount then
-			pcall(vim.api.nvim_win_set_cursor, 0, mark)
+	group = vim.api.nvim_create_augroup("bdryanovski/last_location", { clear = true }),
+	desc = "Go to the last location when opening a buffer",
+	callback = function(args)
+		local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+		local line_count = vim.api.nvim_buf_line_count(args.buf)
+		if mark[1] > 0 and mark[1] <= line_count then
+			vim.cmd('normal! g`"zz')
 		end
 	end,
 })
@@ -59,4 +54,12 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 		local file = vim.loop.fs_realpath(event.match) or event.match
 		vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
 	end,
+})
+
+-- automatically update the content of the file when it change
+--
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+	command = "if mode() != 'c' | checktime | endif",
+	pattern = { "*" },
 })

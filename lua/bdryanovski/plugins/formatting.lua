@@ -5,12 +5,12 @@ return {
 	config = function()
 		local conform = require("conform")
 
+		-- Start auto-formatting by default (and disable with my ToggleFormat command).
+		vim.g.autoformat = true 
+
 		conform.setup({
+			notify_on_error = false,
 			formatters_by_ft = {
-				javascript = { "prettier" },
-				typescript = { "prettier" },
-				javascriptreact = { "prettier" },
-				typescriptreact = { "prettier" },
 				css = { "prettier" },
 				html = { "prettier" },
 				json = { "prettier" },
@@ -18,13 +18,23 @@ return {
 				markdown = { "prettier" },
 				graphql = { "prettier" },
 				lua = { "stylua" },
-				python = { "isort", "black" },
+				-- For filetypes without a formatter:
+				["_"] = { "trim_whitespace", "trim_newlines" },
 			},
-			format_on_save = {
-				lsp_fallback = true,
-				async = false,
-				timeout_ms = 1000,
-			},
+			format_on_save = function()
+				-- Don't format when minifiles is open, since that triggers the "confirm without
+				-- synchronization" message.
+				if vim.g.minifiles_active then
+					return nil
+				end
+
+				-- Stop if we disabled auto-formatting.
+				if not vim.g.autoformat then
+					return nil
+				end
+
+				return {}
+			end,
 		})
 
 		vim.keymap.set({ "n", "v" }, "<leader>mp", function()

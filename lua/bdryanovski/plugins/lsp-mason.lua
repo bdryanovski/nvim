@@ -34,7 +34,6 @@ return {
 				"tailwindcss",
 				"lua_ls",
 				"graphql",
-				"emmet_ls",
 				"prismals",
 			},
 			-- auto-install configured servers (with lspconfig)

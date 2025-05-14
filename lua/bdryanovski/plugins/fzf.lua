@@ -2,6 +2,7 @@ return {
 	"ibhagwan/fzf-lua",
 	-- optional for icon support
 	dependencies = { "nvim-tree/nvim-web-devicons" },
+	cmd = "FzfLua",
 	-- or if using mini.icons/mini.nvim
 	-- dependencies = { "echasnovski/mini.icons" },
 	config = function()
@@ -15,13 +16,27 @@ return {
 			winopts = {
 				height = 0.85, -- window height
 				width = 0.80, -- window width
+				border = "rounded", -- window border type
+				backdrop = 20,
 				preview = {
+					border = "rounded", -- preview border type
 					layout = "vertical", -- vertical preview layout
 					scrollbar = "float", -- preview scrollbar type
 					delay = 50, -- delay(ms) displaying the preview
 					title = true, -- preview window title
 					title_pos = "center", -- alignment of preview window title
 					scrollchars = { "█", "" }, -- scrollbar chars
+					winopts = { -- builtin previewer window options
+						number = true,
+						relativenumber = false,
+						cursorline = true,
+						cursorlineopt = "both",
+						cursorcolumn = false,
+						signcolumn = "no",
+						list = false,
+						foldenable = false,
+						foldmethod = "manual",
+					},
 				},
 				on_create = function()
 					-- Disable line wrap and line number in preview window
@@ -57,6 +72,7 @@ return {
 				},
 			},
 			files = {
+				previewers = "bat",
 				prompt = "Files❯ ",
 				git_icons = true, -- show git icons?
 				file_icons = true, -- show file icons?
@@ -154,14 +170,13 @@ return {
 		-- Files and buffers
 		keymap("n", "<leader>ff", fzf.files, { desc = "Find files" })
 		keymap("n", "<leader>fb", fzf.buffers, { desc = "Find buffers" })
-		keymap("n", "<leader>fo", fzf.oldfiles, { desc = "Find recent files" })
-		keymap("n", "<leader>fg", fzf.git_files, { desc = "Find git files" })
+		keymap("n", "<leader>f/", fzf.oldfiles, { desc = "Find recent files" })
 		keymap("n", "<leader>fr", fzf.resume, { desc = "Resume last search" })
 
 		-- Search
-		keymap("n", "<leader>sg", fzf.live_grep, { desc = "Search with grep" })
-		keymap("n", "<leader>sw", fzf.grep_cword, { desc = "Search word under cursor" })
-		keymap("v", "<leader>sv", fzf.grep_visual, { desc = "Search visual selection" })
+		keymap("n", "<leader>fs", fzf.live_grep, { desc = "Search with grep" })
+		keymap("n", "<leader>fc", fzf.grep_cword, { desc = "Search word under cursor" })
+		keymap("v", "<leader>fv", fzf.grep_visual, { desc = "Search visual selection" })
 
 		-- LSP related
 		keymap("n", "<leader>lr", fzf.lsp_references, { desc = "LSP references" })
