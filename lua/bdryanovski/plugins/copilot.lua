@@ -1,19 +1,29 @@
 return {
-	"github/copilot.vim",
-	-- cmd = "Copilot",
-	-- event = "InsertEnter",
-	-- opts = {
-	-- 	filetypes = {
-	-- 		help = false,
-	-- 		gitcommit = false,
-	-- 		gitrebase = false,
-	-- 		hgcommit = false,
-	-- 		svn = false,
-	-- 		cvs = false,
-	-- 		["."] = false,
-	-- 	},
-	-- 	copilot_node_command = "node", -- Node.js version must be > 16.x
-	-- 	server_opts_overrides = {},
-	-- 	on_status_update = require("lualine").refresh,
-	-- },
+	"zbirenbaum/copilot.lua",
+	cmd = "Copilot",
+	event = "InsertEnter",
+	opts = {
+		-- The panel is useless.
+		panel = { enabled = false },
+		suggestion = {
+			enabled = true,
+			auto_trigger = true,
+			debounce = 75,
+			keymap = {
+				accept = "<Tab>",
+				dismiss = "<Esc>",
+			},
+		},
+		filetypes = {
+			markdown = true,
+			yaml = false,
+			help = false,
+			gitcommit = false,
+			gitrebase = false,
+			hgcommit = false,
+			svn = false,
+			cvs = false,
+			["."] = false,
+		},
+	},
 }

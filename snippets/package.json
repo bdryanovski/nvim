@@ -7,6 +7,10 @@
   "contributes": {
     "snippets": [
       {
+        "language": "c",
+        "path": "./c.json"
+      },
+      {
         "language": [
           "javascript",
           "javascriptreact"
