@@ -3,8 +3,6 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"saghen/blink.cmp",
-		"hrsh7th/cmp-nvim-lsp",
-		"ibhagwan/fzf-lua",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		{
 			"folke/lazydev.nvim",
@@ -19,19 +17,6 @@ return {
 		},
 	},
 	config = function()
-		-- import lspconfig plugin
-		local lspconfig = require("lspconfig")
-		local navic = require("nvim-navic")
-		local fzf_lua = require("fzf-lua")
-
-		local util = require("lspconfig.util")
-
-		local on_attach = function(client, bufnr)
-			if client.server_capabilities.documentSymbolProvider then
-				navic.attach(client, bufnr)
-			end
-		end
-
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("setup-lsp-attach", { clear = true }),
 			callback = function(event)
@@ -44,7 +29,6 @@ return {
 				map("<C-k>", vim.lsp.buf.signature_help, "Signature help")
 
 				-- Use fzf-lua for code actions
-				map("<leader>D", fzf_lua.diagnostics_document, "Show buffer/file diagnostics")
 				map("<leader>d", vim.diagnostic.open_float, "Show line diagnostics")
 				map("[d", vim.diagnostic.goto_prev, "Go to previous diagnostic")
 				map("]d", vim.diagnostic.goto_next, "Go to next diagnostic")
@@ -111,23 +95,24 @@ return {
 			end,
 		})
 
-		local original_capabilities = vim.lsp.protocol.make_client_capabilities()
-		local capabilities = require("blink.cmp").get_lsp_capabilities(original_capabilities)
+		local capabilities = require("blink.cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 		local lsp_flags = {
 			debounce_text_changes = 150,
 		}
 
-		-- configure html server
-		lspconfig["html"].setup({
-			capabilities = capabilities,
-		})
-
-		-- configure typescript server with plugin
-		lspconfig["ts_ls"].setup({
+		vim.lsp.config("*", {
 			capabilities = capabilities,
 			on_attach = on_attach,
 			flags = lsp_flags,
+			root_markets = { ".git", "package.json", "tsconfig.json", "jsconfig.json" },
+		})
+
+		vim.lsp.enable("cssls")
+		vim.lsp.enable("html")
+
+		-- configure typescript server with plugin
+		vim.lsp.config("ts_ls", {
 			server = {
 				settings = {
 					javascript = {
@@ -156,105 +141,8 @@ return {
 			},
 		})
 
-		-- lspconfig["eslint"].setup({
-		-- 	capabilities = capabilities,
-		-- 	root_dir = function(fname)
-		-- 		local root =
-		-- 			util.root_pattern(".eslintrc.js", ".eslintrc.json", "eslint.config.js", "package.json")(fname)
-		-- 		if root then
-		-- 			return root
-		-- 		end
-		-- 		return nil -- don’t start if no config found
-		-- 	end,
-		-- })
-
-		-- ESLint with diagnostics disabled
-		lspconfig["eslint"].setup({
-			capabilities = capabilities,
-			root_dir = function(fname)
-				-- Find the closest ESLint configuration
-				local eslint_config_pattern = util.root_pattern(
-					".eslintrc",
-					".eslintrc.js",
-					".eslintrc.cjs",
-					".eslintrc.yaml",
-					".eslintrc.yml",
-					".eslintrc.json",
-					"eslint.config.js",
-					"eslint.config.mjs"
-				)
-
-				-- Used to store path segments
-				local path_segments = {}
-				local path = fname
-
-				-- Build up segments of the path
-				while path ~= nil and path ~= "" do
-					table.insert(path_segments, path)
-					path = vim.fn.fnamemodify(path, ":h")
-					if path == "/" then
-						table.insert(path_segments, path)
-						break
-					end
-				end
-
-				-- Check each path segment for ESLint config, starting from the most specific
-				for _, path_segment in ipairs(path_segments) do
-					local config_path = eslint_config_pattern(path_segment)
-					if config_path then
-						return config_path
-					end
-				end
-
-				-- Fall back to project markers if no ESLint config found
-				return util.root_pattern(".git", "package.json", "tsconfig.json", "jsconfig.json")(fname)
-			end,
-			-- on_attach = function(client, bufnr)
-			-- 	-- Explicitly disable diagnostics for ESLint
-			-- 	client.server_capabilities.diagnosticProvider = false
-			--
-			-- 	-- This means textDocument/diagnostic requests will be ignored
-			-- 	if client.supports_method and client.supports_method("textDocument/diagnostic") then
-			-- 		client.server_capabilities.textDocumentSync = {
-			-- 			openClose = true,
-			-- 			change = 2,
-			-- 			willSave = true,
-			-- 			willSaveWaitUntil = false,
-			-- 			save = { includeText = false },
-			-- 		}
-			-- 	end
-			-- end,
-			handlers = {
-				-- Handle textDocument/diagnostic requests with no-op function
-				["textDocument/diagnostic"] = function()
-					return nil
-				end,
-			},
-			settings = {
-				useESLintClass = true,
-				experimental = {
-					useFlatConfig = true,
-				},
-				workingDirectories = { mode = "closest" },
-				-- Disable running diagnostics
-				run = "never",
-			},
-		})
-
-		-- configure css server
-		lspconfig["cssls"].setup({
-			capabilities = capabilities,
-		})
-
-		-- configure graphql language server
-		lspconfig["graphql"].setup({
-			capabilities = capabilities,
-			filetypes = { "graphql", "gql", "typescriptreact", "javascriptreact" },
-		})
-
 		-- configure lua server (with special settings)
-		lspconfig["lua_ls"].setup({
-			capabilities = capabilities,
+		vim.lsp.config("lua_ls", {
 			settings = { -- custom settings for lua
 				Lua = {
 					completion = {
