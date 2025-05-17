@@ -3,10 +3,12 @@ return {
 	-- optional for icon support
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	cmd = "FzfLua",
+	lazy = false,
 	-- or if using mini.icons/mini.nvim
 	-- dependencies = { "echasnovski/mini.icons" },
 	config = function()
 		local fzf = require("fzf-lua")
+		fzf.register_ui_select()
 
 		-- Setup default options
 		fzf.setup({
@@ -184,7 +186,7 @@ return {
 		vim.keymap.set("n", "<leader>lt", fzf.lsp_typedefs, { desc = "LSP type definitions" })
 		vim.keymap.set("n", "<leader>ls", fzf.lsp_document_symbols, { desc = "LSP document symbols" })
 		vim.keymap.set("n", "<leader>lw", fzf.lsp_workspace_symbols, { desc = "LSP workspace symbols" })
-		vim.keymap.set("n", "<leader>la", fzf.lsp_code_actions, { desc = "LSP code actions" })
+		vim.keymap.set("n", "<leader>ca", fzf.lsp_code_actions, { desc = "LSP code actions" })
 
 		-- Diagnostics
 		vim.keymap.set("n", "<leader>dd", fzf.diagnostics_document, { desc = "Document diagnostics" })
