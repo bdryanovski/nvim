@@ -1,3 +1,4 @@
+-- Documentation: https://github.com/zbirenbaum/copilot.lua
 return {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
@@ -14,6 +15,7 @@ return {
 				dismiss = "<Esc>",
 			},
 		},
+		-- Disable copilot in certain filetypes
 		filetypes = {
 			markdown = true,
 			yaml = false,

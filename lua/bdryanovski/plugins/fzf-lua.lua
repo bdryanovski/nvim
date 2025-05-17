@@ -164,36 +164,35 @@ return {
 		})
 
 		-- Keymappings
-		local keymap = vim.keymap.set
 		local opts = { noremap = true, silent = true }
 
 		-- Files and buffers
-		keymap("n", "<leader>ff", fzf.files, { desc = "Find files" })
-		keymap("n", "<leader>fb", fzf.buffers, { desc = "Find buffers" })
-		keymap("n", "<leader>f/", fzf.oldfiles, { desc = "Find recent files" })
-		keymap("n", "<leader>fr", fzf.resume, { desc = "Resume last search" })
+		vim.keymap.set("n", "<leader>ff", fzf.files, { desc = "Find files" })
+		vim.keymap.set("n", "<leader>fb", fzf.buffers, { desc = "Find buffers" })
+		vim.keymap.set("n", "<leader>f/", fzf.oldfiles, { desc = "Find recent files" })
+		vim.keymap.set("n", "<leader>fr", fzf.resume, { desc = "Resume last search" })
 
 		-- Search
-		keymap("n", "<leader>fs", fzf.live_grep, { desc = "Search with grep" })
-		keymap("n", "<leader>fc", fzf.grep_cword, { desc = "Search word under cursor" })
-		keymap("v", "<leader>fv", fzf.grep_visual, { desc = "Search visual selection" })
+		vim.keymap.set("n", "<leader>fs", fzf.live_grep, { desc = "Search with grep" })
+		vim.keymap.set("n", "<leader>fc", fzf.grep_cword, { desc = "Search word under cursor" })
+		vim.keymap.set("v", "<leader>fv", fzf.grep_visual, { desc = "Search visual selection" })
 
 		-- LSP related
-		keymap("n", "<leader>lr", fzf.lsp_references, { desc = "LSP references" })
-		keymap("n", "<leader>ld", fzf.lsp_definitions, { desc = "LSP definitions" })
-		keymap("n", "<leader>li", fzf.lsp_implementations, { desc = "LSP implementations" })
-		keymap("n", "<leader>lt", fzf.lsp_typedefs, { desc = "LSP type definitions" })
-		keymap("n", "<leader>ls", fzf.lsp_document_symbols, { desc = "LSP document symbols" })
-		keymap("n", "<leader>lw", fzf.lsp_workspace_symbols, { desc = "LSP workspace symbols" })
-		keymap("n", "<leader>la", fzf.lsp_code_actions, { desc = "LSP code actions" })
+		vim.keymap.set("n", "<leader>gr", fzf.lsp_references, { desc = "LSP references" })
+		vim.keymap.set("n", "<leader>gd", fzf.lsp_definitions, { desc = "LSP definitions" })
+		vim.keymap.set("n", "<leader>li", fzf.lsp_implementations, { desc = "LSP implementations" })
+		vim.keymap.set("n", "<leader>lt", fzf.lsp_typedefs, { desc = "LSP type definitions" })
+		vim.keymap.set("n", "<leader>ls", fzf.lsp_document_symbols, { desc = "LSP document symbols" })
+		vim.keymap.set("n", "<leader>lw", fzf.lsp_workspace_symbols, { desc = "LSP workspace symbols" })
+		vim.keymap.set("n", "<leader>la", fzf.lsp_code_actions, { desc = "LSP code actions" })
 
 		-- Diagnostics
-		keymap("n", "<leader>dd", fzf.diagnostics_document, { desc = "Document diagnostics" })
-		keymap("n", "<leader>dw", fzf.diagnostics_workspace, { desc = "Workspace diagnostics" })
+		vim.keymap.set("n", "<leader>dd", fzf.diagnostics_document, { desc = "Document diagnostics" })
+		vim.keymap.set("n", "<leader>dw", fzf.diagnostics_workspace, { desc = "Workspace diagnostics" })
 
 		-- Git
-		keymap("n", "<leader>gc", fzf.git_commits, { desc = "Git commits" })
-		keymap("n", "<leader>gb", fzf.git_branches, { desc = "Git branches" })
-		keymap("n", "<leader>gs", fzf.git_status, { desc = "Git status" })
+		vim.keymap.set("n", "<leader>gc", fzf.git_commits, { desc = "Git commits" })
+		vim.keymap.set("n", "<leader>gb", fzf.git_branches, { desc = "Git branches" })
+		vim.keymap.set("n", "<leader>gs", fzf.git_status, { desc = "Git status" })
 	end,
 }
