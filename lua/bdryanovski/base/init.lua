@@ -46,13 +46,6 @@ cnf.foldlevel = 4
 cnf.foldmethod = "expr"
 cnf.foldexpr = "nvim_treesitter#foldexpr()"
 
--- automatically update the content of the file when it change
-cnf.autoread = true
-vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
-	command = "if mode() != 'c' | checktime | endif",
-	pattern = { "*" },
-})
-
 if vim.fn.has("nvim-0.10") == 1 then
 	cnf.smoothscroll = true
 end

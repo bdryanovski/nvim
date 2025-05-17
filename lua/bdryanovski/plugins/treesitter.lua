@@ -24,7 +24,6 @@ return {
 				},
 				-- ensure these language parsers are installed
 				ensure_installed = {
-					"astro",
 					"json",
 					"javascript",
 					"typescript",
@@ -33,11 +32,8 @@ return {
 					"html",
 					"css",
 					"sql",
-					"prisma",
 					"markdown",
 					"markdown_inline",
-					"svelte",
-					"graphql",
 					"bash",
 					"lua",
 					"vim",

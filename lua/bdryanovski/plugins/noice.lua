@@ -11,7 +11,6 @@ return {
 			"rcarriga/nvim-notify",
 		},
 		opts = {
-
 			routes = {
 				{
 					filter = {
@@ -68,7 +67,7 @@ return {
 				-- view_error = "notify", -- view for errors
 				-- view_warn = "notify", -- view for warnings
 				-- view_history = "messages", -- view for :messages
-				-- view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+				view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
 			},
 			popupmenu = {
 				enabled = true, -- enables the Noice popupmenu UI

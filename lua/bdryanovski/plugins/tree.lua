@@ -1,6 +1,5 @@
 return {
 	"nvim-tree/nvim-tree.lua",
-	tag = "nvim-tree-v1.9.0",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
 		-- recommended settings from nvim-tree documentation
@@ -11,7 +10,7 @@ return {
 		vim.cmd([[ highlight NvimTreeFolderArrowClosed guifg=#3FC5FF ]])
 		vim.cmd([[ highlight NvimTreeFolderArrowOpen guifg=#3FC5FF ]])
 
-		local WIDTH_RATIO = 0.5
+		local WIDTH_RATIO = 0.8
 		local HEIGHT_RATIO = 0.8
 
 		-- configure nvim-tree

@@ -6,6 +6,17 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		"ibhagwan/fzf-lua",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
+		{
+			"folke/lazydev.nvim",
+			ft = "lua", -- only load on lua files
+			opts = {
+				library = {
+					-- See the configuration section for more details
+					-- Load luvit types when the `vim.uv` word is found
+					{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+				},
+			},
+		},
 	},
 	config = function()
 		-- import lspconfig plugin
@@ -29,17 +40,10 @@ return {
 					vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 				end
 
-				map("gD", vim.lsp.buf.declaration, "Go to declaration")
-				map("gd", fzf_lua.lsp_definitions, "Go to definition")
 				map("K", vim.lsp.buf.hover, "Hover documentation")
-				map("gi", fzf_lua.lsp_implementations, "Go to implementation")
 				map("<C-k>", vim.lsp.buf.signature_help, "Signature help")
 
-				map("gr", fzf_lua.lsp_references, "Show LSP references")
-
 				-- Use fzf-lua for code actions
-				map("<leader>ca", fzf_lua.lsp_code_actions, "See available code actions", { "n", "v" })
-
 				map("<leader>D", fzf_lua.diagnostics_document, "Show buffer/file diagnostics")
 				map("<leader>d", vim.diagnostic.open_float, "Show line diagnostics")
 				map("[d", vim.diagnostic.goto_prev, "Go to previous diagnostic")
@@ -151,7 +155,7 @@ return {
 				},
 			},
 		})
-		--
+
 		-- lspconfig["eslint"].setup({
 		-- 	capabilities = capabilities,
 		-- 	root_dir = function(fname)
@@ -163,19 +167,82 @@ return {
 		-- 		return nil -- don’t start if no config found
 		-- 	end,
 		-- })
-		--
+
+		-- ESLint with diagnostics disabled
+		lspconfig["eslint"].setup({
+			capabilities = capabilities,
+			root_dir = function(fname)
+				-- Find the closest ESLint configuration
+				local eslint_config_pattern = util.root_pattern(
+					".eslintrc",
+					".eslintrc.js",
+					".eslintrc.cjs",
+					".eslintrc.yaml",
+					".eslintrc.yml",
+					".eslintrc.json",
+					"eslint.config.js",
+					"eslint.config.mjs"
+				)
+
+				-- Used to store path segments
+				local path_segments = {}
+				local path = fname
+
+				-- Build up segments of the path
+				while path ~= nil and path ~= "" do
+					table.insert(path_segments, path)
+					path = vim.fn.fnamemodify(path, ":h")
+					if path == "/" then
+						table.insert(path_segments, path)
+						break
+					end
+				end
+
+				-- Check each path segment for ESLint config, starting from the most specific
+				for _, path_segment in ipairs(path_segments) do
+					local config_path = eslint_config_pattern(path_segment)
+					if config_path then
+						return config_path
+					end
+				end
+
+				-- Fall back to project markers if no ESLint config found
+				return util.root_pattern(".git", "package.json", "tsconfig.json", "jsconfig.json")(fname)
+			end,
+			-- on_attach = function(client, bufnr)
+			-- 	-- Explicitly disable diagnostics for ESLint
+			-- 	client.server_capabilities.diagnosticProvider = false
+			--
+			-- 	-- This means textDocument/diagnostic requests will be ignored
+			-- 	if client.supports_method and client.supports_method("textDocument/diagnostic") then
+			-- 		client.server_capabilities.textDocumentSync = {
+			-- 			openClose = true,
+			-- 			change = 2,
+			-- 			willSave = true,
+			-- 			willSaveWaitUntil = false,
+			-- 			save = { includeText = false },
+			-- 		}
+			-- 	end
+			-- end,
+			handlers = {
+				-- Handle textDocument/diagnostic requests with no-op function
+				["textDocument/diagnostic"] = function()
+					return nil
+				end,
+			},
+			settings = {
+				useESLintClass = true,
+				experimental = {
+					useFlatConfig = true,
+				},
+				workingDirectories = { mode = "closest" },
+				-- Disable running diagnostics
+				run = "never",
+			},
+		})
+
 		-- configure css server
 		lspconfig["cssls"].setup({
-			capabilities = capabilities,
-		})
-
-		-- configure tailwindcss server
-		lspconfig["tailwindcss"].setup({
-			capabilities = capabilities,
-		})
-
-		-- configure prisma orm server
-		lspconfig["prismals"].setup({
 			capabilities = capabilities,
 		})
 
@@ -257,5 +324,31 @@ return {
 				},
 			},
 		})
+
+		-- Add a diagnostic command to see what's handling textDocument/diagnostic
+		vim.api.nvim_create_user_command("LspDiagHandler", function()
+			print("Checking handlers for textDocument/diagnostic...")
+			local clients = vim.lsp.get_active_clients()
+
+			for _, client in ipairs(clients) do
+				local supports_diagnostics = client.supports_method
+					and client.supports_method("textDocument/diagnostic")
+
+				print(
+					string.format(
+						"%s (id: %d): supports textDocument/diagnostic = %s",
+						client.name,
+						client.id,
+						tostring(supports_diagnostics or false)
+					)
+				)
+
+				if client.name == "eslint" or client.name:match("eslint") then
+					print("ESLint config details:")
+					print("  Root dir: " .. (client.config.root_dir or "N/A"))
+					vim.print(client.config.settings or {})
+				end
+			end
+		end, {})
 	end,
 }
