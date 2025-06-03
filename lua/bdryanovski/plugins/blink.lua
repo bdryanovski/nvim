@@ -4,6 +4,7 @@ return {
 	dependencies = {
 		"onsails/lspkind.nvim",
 		"rafamadriz/friendly-snippets",
+		{ "antosha417/nvim-lsp-file-operations", config = true },
 		{
 			"Kaiser-Yang/blink-cmp-git",
 			dependencies = { "nvim-lua/plenary.nvim" },
@@ -16,7 +17,13 @@ return {
 		require("blink.cmp").setup(opts)
 
 		-- Extend neovim's client capabilities with the completion ones.
-		vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities(nil, true) })
+		vim.lsp.config("*", {
+			capabilities = require("blink.cmp").get_lsp_capabilities(nil, true),
+			flags = {
+				debounce_text_changes = 150,
+			},
+			root_markets = { ".git", "package.json", "tsconfig.json", "jsconfig.json" },
+		})
 	end,
 
 	-- use a release tag to download pre-built binaries
