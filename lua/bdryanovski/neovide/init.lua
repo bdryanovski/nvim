@@ -22,7 +22,7 @@ if vim.g.neovide then
 	g.neovide_cursor_vfx_mode = "ripple"
 	g.neovide_fullscreen = false
 
-	vim.opt.guifont = "Iosevka Term SS10:h15" -- Fira Code:h13
+	vim.opt.guifont = "IosevkaTerm Nerd Font Propo:h15" -- Fira Code:h13
 
 	g.neovide_floating_blur_amount_x = 2.0
 	g.neovide_floating_blur_amount_y = 2.0

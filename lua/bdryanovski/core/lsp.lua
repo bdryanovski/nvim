@@ -8,10 +8,11 @@ vim.lsp.enable({
 	"cssls",
 	"html",
 	"ts_ls",
+	"rust_analyzer",
 })
 
 vim.diagnostic.config({
-	virtual_lines = true,
+	virtual_lines = false,
 	underline = true,
 	update_in_insert = false,
 	severity_sort = true,
@@ -129,8 +130,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 vim.opt.updatetime = 1000
 -- Show errors and warnings in a floating window
-vim.api.nvim_create_autocmd("CursorHold", {
-	callback = function()
-		vim.diagnostic.open_float(nil, { focusable = false, source = "if_many" })
-	end,
-})
+-- vim.api.nvim_create_autocmd("CursorHold", {
+-- 	callback = function()
+-- 		vim.diagnostic.open_float(nil, { focusable = false, source = "if_many" })
+-- 	end,
+-- })
