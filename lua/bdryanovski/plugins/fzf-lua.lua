@@ -23,6 +23,7 @@ return {
 				preview = {
 					border = "rounded", -- preview border type
 					layout = "vertical", -- vertical preview layout
+					silent = true, -- don't show preview window on startup
 					scrollbar = "float", -- preview scrollbar type
 					delay = 50, -- delay(ms) displaying the preview
 					title = true, -- preview window title
@@ -106,15 +107,47 @@ return {
 				prompt = "❯ ",
 				-- LSP specific options
 				cwd_only = false, -- LSP/diagnostics for cwd only
+				file_icons = true,
+				git_icons = false,
 				jump_to_single_result = true, -- automatically jump if only a single result is found
 				symbols = {
 					symbol_hl_prefix = "FzfLuaSymbol",
 					symbol_style = 1, -- how symbols are displayed:
 					-- 1: "AccountId [lsp.interface] interface.ts"
 					-- 2: "AccountId (interface) [lsp.interface]"
+					symbol_icons = {
+						File = "󰈙",
+						Module = "",
+						Namespace = "󰦮",
+						Package = "",
+						Class = "󰆧",
+						Method = "󰊕",
+						Property = "",
+						Field = "",
+						Constructor = "",
+						Enum = "",
+						Interface = "",
+						Function = "󰊕",
+						Variable = "󰀫",
+						Constant = "󰏿",
+						String = "",
+						Number = "󰎠",
+						Boolean = "󰨙",
+						Array = "󱡠",
+						Object = "",
+						Key = "󰌋",
+						Null = "󰟢",
+						EnumMember = "",
+						Struct = "󰆼",
+						Event = "",
+						Operator = "󰆕",
+						TypeParameter = "󰗴",
+					},
 				},
 				code_actions = {
-					previewer = "builtin", -- Use more compatible previewer
+					-- previewer = "builtin", -- Use more compatible previewer
+					previewer = "codeaction_native",
+					preview_pager = "delta --side-by-side --width=$FZF_PREVIEW_COLUMNS --hunk-header-style=omit --file-style=omit",
 					-- Set to 'codeaction' to use specialized previewer or 'builtin' for generic previewer
 					prompt = "Code Actions> ",
 					no_preview_msg = "Preview not available for this action",
