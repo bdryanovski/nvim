@@ -9,10 +9,16 @@ vim.lsp.enable({
 	"html",
 	"ts_ls",
 	"rust_analyzer",
+	"gopls",
 })
 
 vim.diagnostic.config({
-	virtual_lines = false,
+	virtual_lines = {
+		current_line = true, -- Show virtual lines only on the current line
+		severity = {
+			min = vim.diagnostic.severity.ERROR, -- Show diagnostics with severity ERROR and above
+		},
+	},
 	underline = true,
 	update_in_insert = false,
 	severity_sort = true,
@@ -72,6 +78,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		-- Use fzf-lua for code actions
 		map("<leader>d", vim.diagnostic.open_float, "Show line diagnostics")
+
+		-- Some configrations for the LSP client
+		vim.keymap.set("n", "gK", function()
+			local new_config = not vim.diagnostic.config().virtual_lines
+			vim.diagnostic.config({ virtual_lines = new_config })
+		end, { desc = "Toggle diagnostic virtual_lines" })
 
 		-- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
 		---@param client vim.lsp.Client
