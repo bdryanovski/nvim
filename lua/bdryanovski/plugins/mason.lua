@@ -67,6 +67,8 @@ return {
 				"html",
 				"cssls",
 				"lua_ls",
+				"gopls",
+				"rust_analyzer",
 				"graphql",
 			},
 			-- auto-install configured servers (with lspconfig)

@@ -1,50 +1,50 @@
 -- Configuration
 --
 --
-local cnf = vim.opt
+vim.opt.spelllang = { "en" }
 
-cnf.spelllang = { "en" }
+vim.opt.laststatus = 3 -- Show status line in all windows
 
-cnf.laststatus = 3 -- Show status line in all windows
-
-cnf.relativenumber = true
-cnf.number = true
+vim.opt.relativenumber = true
+vim.opt.number = true
 
 vim.scriptencoding = "utf-8"
-cnf.encoding = "utf-8"
-cnf.fileencoding = "utf-8"
+vim.opt.encoding = "utf-8"
+vim.opt.fileencoding = "utf-8"
 
-cnf.tabstop = 2 -- 2 spaces for one tab
-cnf.shiftwidth = 2 -- 2 spaces for one indent
-cnf.expandtab = true
-cnf.autoindent = true
+vim.opt.tabstop = 2 -- 2 spaces for one tab
+vim.opt.shiftwidth = 2 -- 2 spaces for one indent
+vim.opt.expandtab = true
+vim.opt.autoindent = true
 
-cnf.wrap = false
-cnf.cursorline = true
-cnf.showmode = false -- Don't show mode in the command line
+vim.opt.wrap = false
+vim.opt.cursorline = true
+vim.opt.showmode = false -- Don't show mode in the command line
 
-cnf.scrolloff = 10
+vim.opt.scrolloff = 10
 
-cnf.confirm = true -- Confirm before overwriting files
+vim.opt.confirm = true -- Confirm before overwriting files
 
 -- Searching
-cnf.grepprg = "rg --vimgrep"
-cnf.ignorecase = true
-cnf.grepformat = "%f:%l:%c:%m"
-cnf.grepprg = "rg --vimgrep"
-cnf.smartcase = true
-cnf.smartindent = true
+vim.opt.grepprg = "rg --vimgrep"
+vim.opt.ignorecase = true
+vim.opt.grepformat = "%f:%l:%c:%m"
+vim.opt.grepprg = "rg --vimgrep"
+vim.opt.smartcase = true
+vim.opt.smartindent = true
 
-cnf.termguicolors = true
-cnf.background = "dark"
-cnf.signcolumn = "yes"
-cnf.winminwidth = 5
+vim.opt.termguicolors = true
+vim.opt.background = "dark"
+vim.opt.signcolumn = "yes"
+vim.opt.winminwidth = 5
 
-cnf.backspace = { "indent", "eol", "start" }
+vim.opt.winborder = "rounded"
 
-cnf.clipboard:append("unnamedplus")
+vim.opt.backspace = { "indent", "eol", "start" }
 
-cnf.fillchars = {
+vim.opt.clipboard:append("unnamedplus")
+
+vim.opt.fillchars = {
 	foldopen = "",
 	foldclose = "",
 	fold = " ",
@@ -53,23 +53,23 @@ cnf.fillchars = {
 	eob = " ",
 }
 
-cnf.splitright = true
-cnf.splitbelow = true
-cnf.splitkeep = "screen"
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+vim.opt.splitkeep = "screen"
 
-cnf.swapfile = false
-cnf.undofile = true
-cnf.undolevels = 10000
-cnf.updatetime = 200 -- Save swap file and trigger CursorHold
+vim.opt.swapfile = false
+vim.opt.undofile = true
+vim.opt.undolevels = 10000
+vim.opt.updatetime = 200 -- Save swap file and trigger CursorHold
 
 -- Folding code
-cnf.foldlevel = 4
-cnf.foldmethod = "expr"
-cnf.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 4
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
-cnf.sidescrolloff = 8 -- Columns of context
-cnf.timeoutlen = 300 -- Time to wait for a mapped sequence to complete (in milliseconds)
+vim.opt.sidescrolloff = 8 -- Columns of context
+vim.opt.timeoutlen = 300 -- Time to wait for a mapped sequence to complete (in milliseconds)
 
 if vim.fn.has("nvim-0.10") == 1 then
-	cnf.smoothscroll = true
+	vim.opt.smoothscroll = true
 end
