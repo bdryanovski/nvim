@@ -68,7 +68,6 @@ return {
 				"cssls",
 				"lua_ls",
 				"gopls",
-        "delve",
 				"rust_analyzer",
 				"graphql",
 			},
