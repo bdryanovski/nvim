@@ -27,6 +27,7 @@ return {
 					"json",
 					"javascript",
 					"typescript",
+          "astro",
 					"tsx",
 					"yaml",
 					"html",

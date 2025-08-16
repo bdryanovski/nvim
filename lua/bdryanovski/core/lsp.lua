@@ -10,6 +10,7 @@ vim.lsp.enable({
 	"ts_ls",
 	"rust_analyzer",
 	"gopls",
+  "astro_ls"
 })
 
 vim.diagnostic.config({

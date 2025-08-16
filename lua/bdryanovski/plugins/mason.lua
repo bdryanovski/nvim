@@ -69,6 +69,7 @@ return {
 				"lua_ls",
 				"gopls",
 				"rust_analyzer",
+        "astro",
 				"graphql",
 			},
 			-- auto-install configured servers (with lspconfig)

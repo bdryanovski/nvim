@@ -109,7 +109,6 @@ return {
 				cwd_only = false, -- LSP/diagnostics for cwd only
 				file_icons = true,
 				git_icons = false,
-				jump_to_single_result = true, -- automatically jump if only a single result is found
 				symbols = {
 					symbol_hl_prefix = "FzfLuaSymbol",
 					symbol_style = 1, -- how symbols are displayed:
