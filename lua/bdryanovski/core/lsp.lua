@@ -13,12 +13,12 @@ vim.lsp.enable({
 })
 
 vim.diagnostic.config({
-	virtual_lines = {
-		current_line = true, -- Show virtual lines only on the current line
-		severity = {
-			min = vim.diagnostic.severity.ERROR, -- Show diagnostics with severity ERROR and above
-		},
-	},
+	-- virtual_lines = {
+	-- 	current_line = true, -- Show virtual lines only on the current line
+	-- 	severity = {
+	-- 		min = vim.diagnostic.severity.ERROR, -- Show diagnostics with severity ERROR and above
+	-- 	},
+	-- },
 	underline = true,
 	update_in_insert = false,
 	severity_sort = true,
@@ -43,6 +43,11 @@ vim.diagnostic.config({
 			[vim.diagnostic.severity.WARN] = "WarningMsg",
 		},
 	},
+})
+
+-- Help tiny inline diagnostics plugin to work with Neovim's built-in LSP client
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+	virtual_text = false,
 })
 
 -- Make sure that the LSP float window has the same background as the Normal window
