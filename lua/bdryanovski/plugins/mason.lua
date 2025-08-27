@@ -69,8 +69,9 @@ return {
 				"lua_ls",
 				"gopls",
 				"rust_analyzer",
-        "astro",
+				"astro",
 				"graphql",
+				"intelephense",
 			},
 			-- auto-install configured servers (with lspconfig)
 			automatic_installation = true, -- not the same as ensure_installed
