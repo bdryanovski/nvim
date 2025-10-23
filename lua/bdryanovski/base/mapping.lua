@@ -60,3 +60,9 @@ keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 keymap.set("n", "<C-j>", function()
 	vim.diagnostic.goto_next({ popup_opts = { border = "rounded" } })
 end, { desc = "Go to next diagnostic", silent = true })
+
+-- Hardmode
+keymap.set({ "n", "v" }, "<Up>", "<Nop>", { noremap = true })
+keymap.set({ "n", "v" }, "<Down>", "<Nop>", { noremap = true })
+keymap.set({ "n", "v" }, "<Left>", "<Nop>", { noremap = true })
+keymap.set({ "n", "v" }, "<Right>", "<Nop>", { noremap = true })
