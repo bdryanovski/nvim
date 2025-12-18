@@ -11,7 +11,8 @@ vim.lsp.enable({
 	"rust_analyzer",
 	"gopls",
 	"astro_ls",
-	"intelephense",
+	-- "intelephense",
+	"phpactor",
 })
 
 vim.diagnostic.config({
