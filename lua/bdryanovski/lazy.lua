@@ -1,4 +1,4 @@
--- Plugin installation direcotry could be found here: ~/.local/share/nvim/lazy
+-- Plugin installation direcotry could be found here: ~/
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -15,6 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{ import = "bdryanovski.plugins" },
+	{ import = "bdryanovski.themes" },
 }, {
 	ui = { border = "rounded" },
 	install = { missing = false },
