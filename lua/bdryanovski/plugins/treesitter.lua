@@ -27,7 +27,7 @@ return {
 					"json",
 					"javascript",
 					"typescript",
-          "astro",
+					"astro",
 					"tsx",
 					"yaml",
 					"html",
@@ -42,7 +42,7 @@ return {
 					"dockerfile",
 					"gitignore",
 					"query",
-          "go",
+					"go",
 				},
 				-- enable nvim-ts-context-commentstring plugin for commenting tsx and jsx
 				context_commentstring = {
