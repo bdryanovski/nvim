@@ -5,15 +5,15 @@ return {
 	config = function()
 		-- Default configuration
 		require("tiny-inline-diagnostic").setup({
-			signs = {
-				left = "",
-				right = "",
-				diag = "●",
-				arrow = "    ",
-				up_arrow = "    ",
-				vertical = " │",
-				vertical_end = " └",
-			},
+			-- signs = {
+			-- 	left = "",
+			-- 	right = "",
+			-- 	diag = "●",
+			-- 	arrow = "    ",
+			-- 	up_arrow = "    ",
+			-- 	vertical = " │",
+			-- 	vertical_end = " └",
+			-- },
 			blend = {
 				factor = 0.22,
 			},
@@ -21,7 +21,7 @@ return {
 			-- Available options:
 			-- "modern", "classic", "minimal", "powerline",
 			-- "ghost", "simple", "nonerdfont", "amongus"
-			preset = "modern",
+			preset = "powerline",
 
 			transparent_bg = false, -- Set the background of the diagnostic to transparent
 			transparent_cursorline = false, -- Set the background of the cursorline to transparent (only one the first diagnostic)
@@ -45,15 +45,15 @@ return {
 			options = {
 				-- Display the source of the diagnostic (e.g., basedpyright, vsserver, lua_ls etc.)
 				show_source = {
-					enabled = false,
+					enabled = true,
 					if_many = false,
 				},
 
 				-- Use icons defined in the diagnostic configuration
-				use_icons_from_diagnostic = false,
+				use_icons_from_diagnostic = true,
 
 				-- Set the arrow icon to the same color as the first diagnostic severity
-				set_arrow_to_diag_color = false,
+				set_arrow_to_diag_color = true,
 
 				-- Add messages to diagnostics when multiline diagnostics are enabled
 				-- If set to false, only signs will be displayed
@@ -65,7 +65,7 @@ return {
 				throttle = 20,
 
 				-- Minimum message length before wrapping to a new line
-				softwrap = 30,
+				softwrap = 40,
 
 				-- Configuration for multiline diagnostics
 				-- Can either be a boolean or a table with the following options:
@@ -89,7 +89,7 @@ return {
 					trim_whitespaces = false,
 
 					-- Replace tabs with spaces in multiline diagnostics
-					tabstop = 4,
+					tabstop = 2,
 				},
 
 				-- Display all diagnostic messages on the cursor line
