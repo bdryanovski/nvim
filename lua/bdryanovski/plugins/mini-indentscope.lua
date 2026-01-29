@@ -57,7 +57,7 @@ return {
 			},
 
 			-- Which character to use for drawing scope indicator
-			symbol = "╎",
+			symbol = "│",
 		})
 	end,
 }
