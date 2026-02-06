@@ -239,7 +239,13 @@ MiniIndentscope.config = {
 	},
 
 	-- Which character to use for drawing scope indicator
-	symbol = "╎",
+	symbol = "┊",
+
+	-- Which character to use for the top corner of scope indicator
+	symbol_top = "╭",
+
+	-- Which character to use for the bottom corner of scope indicator
+	symbol_bottom = "╰",
 }
 --minidoc_afterlines_end
 
@@ -682,6 +688,8 @@ H.setup_config = function(config)
 	H.check_type("options.try_as_border", config.options.try_as_border, "boolean")
 
 	H.check_type("symbol", config.symbol, "string")
+	H.check_type("symbol_top", config.symbol_top, "string", true)
+	H.check_type("symbol_bottom", config.symbol_bottom, "string", true)
 
 	return config
 end
@@ -894,15 +902,26 @@ H.indicator_compute = function(scope)
 
 	-- Pick highlight group based on if indent is a multiple of shiftwidth.
 	-- This adds visual indicator of whether indent is "correct".
+	local config = H.get_config()
 	local hl_group = (indent % vim.fn.shiftwidth() == 0) and "MiniIndentscopeSymbol" or "MiniIndentscopeSymbolOff"
-	local virt_text = { { H.get_config().symbol, hl_group } }
+	local virt_text = { { config.symbol, hl_group } }
+	local virt_text_top = config.symbol_top and { { config.symbol_top, hl_group } } or nil
+	local virt_text_bottom = config.symbol_bottom and { { config.symbol_bottom, hl_group } } or nil
+
+	-- Use body range so corners land on lines with enough whitespace at the
+	-- draw column (border lines have text starting at that column, which would
+	-- cause overlay to hide the first character).
+	local top = scope.body.top
+	local bottom = scope.body.bottom
 
 	return {
 		buf_id = vim.api.nvim_get_current_buf(),
 		virt_text = virt_text,
+		virt_text_top = virt_text_top,
+		virt_text_bottom = virt_text_bottom,
 		virt_text_win_col = col,
-		top = scope.body.top,
-		bottom = scope.body.bottom,
+		top = top,
+		bottom = bottom,
 	}
 end
 
@@ -1055,6 +1074,15 @@ H.make_draw_function = function(indicator, opts)
 		-- Don't put extmark outside of indicator range
 		if not (indicator.top <= l and l <= indicator.bottom) then
 			return true
+		end
+
+		-- Use different symbols for top/bottom corner lines
+		if l == indicator.top and indicator.virt_text_top then
+			extmark_opts.virt_text = indicator.virt_text_top
+		elseif l == indicator.bottom and indicator.virt_text_bottom then
+			extmark_opts.virt_text = indicator.virt_text_bottom
+		else
+			extmark_opts.virt_text = indicator.virt_text
 		end
 
 		return pcall(vim.api.nvim_buf_set_extmark, indicator.buf_id, H.ns_id, l - 1, 0, extmark_opts)
