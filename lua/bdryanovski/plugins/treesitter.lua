@@ -5,7 +5,6 @@ return {
 		build = ":TSUpdate",
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter-textobjects",
-			"windwp/nvim-ts-autotag",
 		},
 		config = function()
 			-- import nvim-treesitter plugin
@@ -18,10 +17,6 @@ return {
 				},
 				-- enable indentation
 				indent = { enable = true },
-				-- enable autotagging (w/ nvim-ts-autotag plugin)
-				autotag = {
-					enable = true,
-				},
 				-- ensure these language parsers are installed
 				ensure_installed = {
 					"json",
