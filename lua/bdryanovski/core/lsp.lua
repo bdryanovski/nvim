@@ -4,15 +4,22 @@
 --
 
 vim.lsp.enable({
+	-- Lua LSP server for Neovim configuration
 	"lua_ls",
+	-- WEB development LSP servers
 	"cssls",
 	"html",
 	"ts_ls",
-	"rust_analyzer",
-	"gopls",
 	"astro_ls",
+	-- Rust LSP server for Rust development
+	"rust_analyzer",
+	-- Go LSP server for Go development
+	"gopls",
+	-- PHP LSP servers for PHP development
 	"intelephense",
 	"phpactor",
+	-- CLangd for C/C++ development
+	"clangd",
 })
 
 -- Workaround: ts_ls doesn't auto-start via vim.lsp.enable on Neovim 0.12+
