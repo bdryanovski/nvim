@@ -8,8 +8,26 @@ return {
 		picker = { enabled = false },
 		notifier = { enabled = false },
 		quickfile = { enabled = false },
-		scope = { enabled = false },
-		scroll = { enabled = false },
+		scope = {
+			enabled = false,
+		},
+		scroll = {
+			enabled = true,
+			animate = {
+				duration = { step = 10, total = 200 },
+				easing = "linear",
+			},
+			animate_repeat = {
+				delay = 100,
+				duration = { step = 5, total = 50 },
+				easing = "linear",
+			},
+			filter = function(buf)
+				return vim.g.snacks_scroll ~= false
+					and vim.b[buf].snacks_scroll ~= false
+					and vim.bo[buf].buftype == "terminal"
+			end,
+		},
 		statuscolumn = { enabled = false },
 		words = { enabled = false },
 		dashboard = {
