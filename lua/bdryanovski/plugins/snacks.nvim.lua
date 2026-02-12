@@ -1,5 +1,7 @@
 return {
 	"folke/snacks.nvim",
+	priority = 1000,
+	lazy = false,
 	opts = {
 		bigfile = { enabled = false },
 		explorer = { enabled = false },
@@ -131,6 +133,7 @@ return {
 			pattern = "VeryLazy",
 			callback = function()
 				Snacks.toggle.dim():map("<leader>uD")
+				Snacks.toggle.scroll():map("<leader>uS")
 			end,
 		})
 	end,
