@@ -22,18 +22,6 @@ vim.lsp.enable({
 	"clangd",
 })
 
--- Workaround: ts_ls doesn't auto-start via vim.lsp.enable on Neovim 0.12+
--- This uses the config already loaded above from lsp/ts_ls.lua
-vim.api.nvim_create_autocmd("FileType", {
-	group = vim.api.nvim_create_augroup("ts_ls-start", { clear = true }),
-	pattern = vim.lsp.config.ts_ls.filetypes,
-	callback = function(args)
-		local cfg = vim.lsp.config.ts_ls
-		local root = vim.fs.root(args.buf, cfg.root_markers) or vim.fn.getcwd()
-		vim.lsp.start(vim.tbl_extend("force", cfg, { name = "ts_ls", root_dir = root }))
-	end,
-})
-
 vim.diagnostic.config({
 	-- virtual_lines = {
 	-- 	current_line = true, -- Show virtual lines only on the current line
