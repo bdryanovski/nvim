@@ -1,10 +1,29 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = { "BufReadPre", "BufNewFile" },
+		event = "VeryLazy",
+		lazy = vim.fn.argc(-1) == 0, -- load treesitter immediately when opening a file from the cmdline
 		build = ":TSUpdate",
 		dependencies = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
+			{
+				"nvim-treesitter/nvim-treesitter-textobjects",
+				lazy = true,
+			},
+		},
+		cmd = {
+			"TSBufDisable",
+			"TSBufEnable",
+			"TSBufToggle",
+			"TSDisable",
+			"TSEnable",
+			"TSToggle",
+			"TSInstall",
+			"TSInstallInfo",
+			"TSInstallSync",
+			"TSModuleInfo",
+			"TSUninstall",
+			"TSUpdate",
+			"TSUpdateSync",
 		},
 		config = function()
 			-- import nvim-treesitter plugin
@@ -37,6 +56,7 @@ return {
 					"dockerfile",
 					"gitignore",
 					"query",
+					"rust",
 					"go",
 				},
 				-- enable nvim-ts-context-commentstring plugin for commenting tsx and jsx
