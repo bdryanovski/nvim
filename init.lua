@@ -19,16 +19,6 @@ require("bdryanovski.lazy")
 require("bdryanovski.neovide")
 
 -- Custom plugins section
---
-require("bdryanovski.custom.togglewords").setup({
-	pairs = {
-		{ "true", "false" },
-		{ "on", "off" },
-		{ "start", "stop" },
-	},
-	keymap = "<leader>x",
-})
-
 require("bdryanovski.custom.indent").setup({
 	-- Draw options
 	draw = {
