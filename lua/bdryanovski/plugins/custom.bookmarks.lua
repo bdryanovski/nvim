@@ -2,7 +2,7 @@ return {
 	dir = vim.fn.stdpath("config") .. "/lua/bdryanovski/custom/bookmarks",
 	name = "bookmarks",
 	main = "bdryanovski/custom/bookmarks",
-	event = "VeryLazy",
+	event = "BufReadPost",
 	config = function()
 		require("bdryanovski/custom/bookmarks").setup({
 			sign = {

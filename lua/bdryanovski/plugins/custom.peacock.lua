@@ -2,7 +2,7 @@ return {
 	dir = vim.fn.stdpath("config") .. "/lua/bdryanovski/custom/peacock",
 	name = "peacock",
 	main = "bdryanovski/custom/peacock",
-	event = "VeryLazy",
+	event = "BufReadPost",
 	config = function()
 		require("bdryanovski/custom/peacock").setup({
 			bar_enabled = false, -- When this is enabled (default) the left most window will show its signcolumn with the project color.
