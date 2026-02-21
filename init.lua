@@ -8,11 +8,10 @@ end
 
 -- Global variables.
 vim.g.projects_dir = vim.env.HOME .. "/Projects"
-
 vim.g.github_projects_dir = vim.env.HOME .. "/Github"
 vim.g.work_projects_dir = vim.env.HOME .. "/Manual"
 
-require("navbar")
+-- require("navbar")
 
 require("bdryanovski.base")
 require("bdryanovski.base.autocmd")
