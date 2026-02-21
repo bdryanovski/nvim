@@ -2,7 +2,7 @@ return {
 	dir = vim.fn.stdpath("config") .. "/lua/bdryanovski/custom/indent",
 	name = "indent",
 	main = "bdryanovski/custom/indent",
-	event = "VeryLazy",
+	event = "BufReadPost",
 	config = function()
 		require("bdryanovski/custom/indent").setup({
 			-- Draw options
