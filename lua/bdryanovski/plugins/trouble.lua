@@ -1,6 +1,6 @@
 return {
 	"folke/trouble.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons", "folke/lsp-colors.nvim" },
+	dependencies = { "nvim-tree/nvim-web-devicons" },
 	opts = {
 		auto_close = true, -- auto close when there are no items
 		auto_open = false, -- auto open when there are items
