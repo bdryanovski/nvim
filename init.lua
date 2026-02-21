@@ -11,8 +11,6 @@ vim.g.projects_dir = vim.env.HOME .. "/Projects"
 vim.g.github_projects_dir = vim.env.HOME .. "/Github"
 vim.g.work_projects_dir = vim.env.HOME .. "/Manual"
 
--- require("navbar")
-
 require("bdryanovski.base")
 require("bdryanovski.base.autocmd")
 require("bdryanovski.base.mapping")
@@ -22,21 +20,6 @@ require("bdryanovski.neovide")
 
 -- Custom plugins section
 --
-require("bdryanovski.custom.bookmarks").setup({
-	sign = {
-		text = "📍",
-		texthl = "DiagnosticInfo",
-		priority = 20,
-	},
-	keymaps = {
-		toggle = "mb",
-		next = "]b",
-		prev = "[b",
-		list = "<leader>bl",
-	},
-	persist = true,
-})
-
 require("bdryanovski.custom.togglewords").setup({
 	pairs = {
 		{ "true", "false" },
