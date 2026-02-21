@@ -1,5 +1,9 @@
 local M = {}
 
+print("Navbar path: ", vim.fn.stdpath("config") .. "/lua/bdryanovski/custom/navbar/init.lua")
+print("Current working dir: ", vim.fn.getcwd())
+print("Winbar require check: ", pcall(require, "bdryanovski/custom/navbar"))
+
 --- Window bar that shows the current file path (in a fancy way).
 ---@return string
 function M.render()
@@ -61,7 +65,7 @@ function M.render()
 end
 
 vim.api.nvim_create_autocmd("BufWinEnter", {
-	group = vim.api.nvim_create_augroup("bdryanovski/winbar", { clear = true }),
+	group = vim.api.nvim_create_augroup("bdryanovski/navbar", { clear = true }),
 	desc = "Attach winbar",
 	callback = function(args)
 		if
@@ -70,7 +74,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 			and vim.api.nvim_buf_get_name(args.buf) ~= "" -- Has a file name
 			and not vim.wo[0].diff -- Not in diff mode
 		then
-			vim.wo.winbar = "%{%v:lua.require'navbar'.render()%}"
+			vim.wo.winbar = "%{%v:lua.require('bdryanovski/custom/navbar').render()%}"
 		end
 	end,
 })
