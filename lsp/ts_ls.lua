@@ -1,6 +1,7 @@
 return {
 	cmd = { "typescript-language-server", "--stdio" },
 	filetypes = {
+		"astro",
 		"javascript",
 		"javascriptreact",
 		"javascript.jsx",
