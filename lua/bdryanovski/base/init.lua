@@ -25,6 +25,14 @@ vim.opt.scrolloff = 10
 
 vim.opt.confirm = true -- Confirm before overwriting files
 
+-- editing
+vim.opt.colorcolumn = "100" -- show a column at 100 position chars
+vim.opt.showmatch = true -- show matching brackets when text indicator is over them
+--
+-- perf
+-- @TODO: set to true and fix noise popup error at some point
+vim.opt.lazyredraw = false -- don't redraw while executing macros (good performance config)
+
 -- Searching
 vim.opt.grepprg = "rg --vimgrep"
 vim.opt.ignorecase = true
@@ -32,6 +40,8 @@ vim.opt.grepformat = "%f:%l:%c:%m"
 vim.opt.grepprg = "rg --vimgrep"
 vim.opt.smartcase = true
 vim.opt.smartindent = true
+vim.opt.iskeyword:append("-") -- consider string-string as whole word
+vim.opt.selection = "inclusive" -- include the last character of a selection
 
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
