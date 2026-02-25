@@ -1,8 +1,7 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = "VeryLazy",
-		lazy = vim.fn.argc(-1) == 0, -- load treesitter immediately when opening a file from the cmdline
+    lazy = false,
 		build = ":TSUpdate",
 		dependencies = {
 			{
@@ -26,11 +25,9 @@ return {
 			"TSUpdateSync",
 		},
 		config = function()
-			-- import nvim-treesitter plugin
-			local treesitter = require("nvim-treesitter.configs")
 
 			-- configure treesitter
-			treesitter.setup({ -- enable syntax highlighting
+			require('nvim-treesitter').setup({ -- enable syntax highlighting
 				highlight = {
 					enable = true,
 				},
