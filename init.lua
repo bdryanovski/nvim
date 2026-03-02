@@ -17,3 +17,5 @@ require("bdryanovski.base.mapping")
 require("bdryanovski.core.lsp")
 require("bdryanovski.lazy")
 require("bdryanovski.neovide")
+
+vim.cmd.colorscheme("retrobox")
