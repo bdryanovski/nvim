@@ -3,24 +3,49 @@ return {
 	"stevearc/conform.nvim",
 	lazy = true,
 	event = { "BufReadPre", "BufNewFile" }, -- to disable, comment this out
+	commands = { "FormatDisable", "FormatEnable", "ConformInfo" },
 	config = function()
 		local conform = require("conform")
+
+		---@param bufnr integer
+		---@param ... string
+		---@return string
+		local function first(bufnr, ...)
+			local conform = require("conform")
+			for i = 1, select("#", ...) do
+				local formatter = select(i, ...)
+				if conform.get_formatter_info(formatter, bufnr).available then
+					return formatter
+				end
+			end
+			return select(1, ...)
+		end
 
 		conform.setup({
 			notify_on_error = false,
 			formatters_by_ft = {
+				json = function(bufnr)
+					return { first(bufnr, "prettier"), "oxfmt" }
+				end,
+				javascript = function(bufnr)
+					return { first(bufnr, "prettier"), "oxfmt" }
+				end,
+				javascriptreact = function(bufnr)
+					return { first(bufnr, "prettier"), "oxfmt" }
+				end,
+				typescript = function(bufnr)
+					return { first(bufnr, "prettier"), "oxfmt" }
+				end,
+				typescriptreact = function(bufnr)
+					return { first(bufnr, "prettier"), "oxfmt" }
+				end,
 				css = { "prettier" },
 				html = { "prettier" },
-				json = { "oxfmt", "prettier" },
 				yaml = { "prettier" },
 				markdown = { "prettier" },
 				mdx = { "prettier" },
 				graphql = { "prettier" },
 				lua = { "stylua" },
-				javascript = { "oxfmt", "prettier" },
-				typescript = { "oxfmt", "prettier" },
-				javascriptreact = { "oxfmt", "prettier" },
-				typescriptreact = { "oxfmt", "prettier" },
 				astro = { "prettier" },
 				go = { "gofmt" },
 				-- For filetypes without a formatter:

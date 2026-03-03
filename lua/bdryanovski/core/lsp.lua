@@ -23,6 +23,9 @@ vim.lsp.enable({
 
 	-- oxfmt for formatting
 	"oxfmt",
+
+	-- oxlint for linting
+	"oxlint",
 })
 
 vim.diagnostic.config({
