@@ -20,6 +20,9 @@ vim.lsp.enable({
 	"phpactor",
 	-- CLangd for C/C++ development
 	"clangd",
+
+	-- oxfmt for formatting
+	"oxfmt",
 })
 
 vim.diagnostic.config({
