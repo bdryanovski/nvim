@@ -17,3 +17,18 @@ require("bdryanovski.base.mapping")
 require("bdryanovski.lazy")
 require("bdryanovski.core.lsp")
 require("bdryanovski.neovide")
+--
+-- vim.opt.guicursor = {
+-- 	"n-v:block-Cursor/lCursor",
+-- 	"i-c-ci-ve:block-TermCursor",
+-- }
+-- set guicursor=n-v-c-i:block
+--
+-- set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+-- 		  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+-- 		  \,sm:block-blinkwait175-blinkoff150-blinkon175
+
+-- Source - https://stackoverflow.com/a/75967251
+-- Posted by trash bin, modified by community. See post 'Timeline' for change history
+-- Retrieved 2026-03-10, License - CC BY-SA 4.0
+vim.opt.guicursor = "n-v-c-sm:block-nCursor-blinkwait300-blinkon200-blinkoff150,i-ci-ve:ver100,r-cr-o:hor20"
