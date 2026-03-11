@@ -10,8 +10,8 @@ return {
 
 			enable = {
 				-- terminal = true,
-				legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
-				migrations = true, -- Handle deprecated options automatically
+
+				-- migrations = true, -- Handle deprecated options automatically
 			},
 
 			styles = {
