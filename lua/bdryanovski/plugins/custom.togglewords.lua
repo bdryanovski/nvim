@@ -9,6 +9,7 @@ return {
 				{ "true", "false" },
 				{ "on", "off" },
 				{ "start", "stop" },
+				{ "pick", "squash" },
 			},
 			keymap = "<leader>x",
 		})
