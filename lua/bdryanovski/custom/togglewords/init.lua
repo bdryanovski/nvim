@@ -14,6 +14,9 @@ local config = {
 		{ "and", "or" },
 		{ "And", "Or" },
 		{ "AND", "OR" },
+		{ "pick", "squash" },
+		{ "&&", "||" },
+		{ "||", "&&" },
 	},
 	keymap = "<leader>tw", -- Default keymap
 }
