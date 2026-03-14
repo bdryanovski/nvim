@@ -68,6 +68,13 @@ return {
 				},
 			})
 			vim.treesitter.language.register("markdown", "mdx")
+
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "mdx",
+				callback = function()
+					vim.treesitter.start()
+				end,
+			})
 		end,
 	},
 }
