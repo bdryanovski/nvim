@@ -36,9 +36,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 -- wrap and check for spell in text filetypes
 vim.api.nvim_create_autocmd("FileType", {
 	group = augroup("wrap_spell"),
-	pattern = { "gitcommit", "markdown" },
+	pattern = { "gitcommit", "markdown", "mdx" },
 	callback = function()
-		vim.opt_local.textwidth = 80
+		vim.opt_local.textwidth = 100
 		vim.opt_local.wrap = false
 		vim.opt_local.spell = true
 	end,
