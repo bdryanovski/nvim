@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-    lazy = false,
+		lazy = false,
 		build = ":TSUpdate",
 		dependencies = {
 			{
@@ -25,9 +25,8 @@ return {
 			"TSUpdateSync",
 		},
 		config = function()
-
 			-- configure treesitter
-			require('nvim-treesitter').setup({ -- enable syntax highlighting
+			require("nvim-treesitter").setup({ -- enable syntax highlighting
 				highlight = {
 					enable = true,
 				},
@@ -62,6 +61,13 @@ return {
 					enable_autocmd = false,
 				},
 			})
+
+			vim.filetype.add({
+				extension = {
+					mdx = "mdx",
+				},
+			})
+			vim.treesitter.language.register("markdown", "mdx")
 		end,
 	},
 }
