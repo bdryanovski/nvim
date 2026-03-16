@@ -23,7 +23,6 @@ mason.setup({
 mason_lspconfig.setup({
   automatic_enable = false,
   ensure_installed = {
-    -- "ts_ls",
     "html",
     "cssls",
     "lua_ls",
@@ -33,8 +32,6 @@ mason_lspconfig.setup({
     "graphql",
     "intelephense",
     "clangd",
-    -- "oxfmt",
-    -- "oxlint",
   },
   automatic_installation = true, -- not the same as ensure_installed
 })
