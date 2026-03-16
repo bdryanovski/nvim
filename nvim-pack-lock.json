@@ -77,6 +77,10 @@
       "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
       "src": "https://github.com/williamboman/mason.nvim"
     },
+    "mdx.nvim": {
+      "rev": "30222997ed4c0c7cc7447c4fce360fce87101bbf",
+      "src": "https://github.com/davidmh/mdx.nvim"
+    },
     "mini.icons": {
       "rev": "5b9076dae1bfbe47ba4a14bc8b967cde0ab5d77e",
       "src": "https://github.com/nvim-mini/mini.icons"
