@@ -14,9 +14,25 @@ vim.g.work_projects_dir = vim.env.HOME .. "/Manual"
 require("bdryanovski.base")
 require("bdryanovski.base.autocmd")
 require("bdryanovski.base.mapping")
-require("bdryanovski.lazy")
 require("bdryanovski.core.lsp")
 require("bdryanovski.neovide")
+
+
+vim.api.nvim_create_autocmd("PackChanged", {
+  callback = function(ev)
+    local name, kind = ev.data.spec.name, ev.data.kind
+    if name == "blink.cmp" and (kind == "install" or kind == "update") then
+      local path = vim.fn.stdpath("data") .. "/site/pack/core/opt/blink.cmp"
+      vim.notify("Building blink.cmp", vim.log.levels.INFO)
+      local obj = vim.system({ "cargo", "build", "--release" }, { cwd = path }):wait()
+      if obj.code == 0 then
+        vim.notify("Building blink.cmp done", vim.log.levels.INFO)
+      else
+        vim.notify("Building blink.cmp failed", vim.log.levels.ERROR)
+      end
+    end
+  end,
+})
 --
 -- vim.opt.guicursor = {
 -- 	"n-v:block-Cursor/lCursor",

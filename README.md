@@ -1,5 +1,7 @@
 # NeoVIM Configuration
 
+Should include some docs at some point here 
+
 The ASCII caracters used in the animation
 ⠀⠁⠂⠃⠄⠅⠆⠇⠈⠉⠊⠋⠌⠍⠎⠏
 ⠐⠑⠒⠓⠔⠕⠖⠗⠘⠙⠚⠛⠜⠝⠞⠟
