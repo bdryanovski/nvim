@@ -9,7 +9,6 @@ vim.lsp.enable({
 	-- WEB development LSP servers
 	"cssls",
 	"html",
-	"ts_ls",
 	"astro_ls",
 	-- Rust LSP server for Rust development
 	"rust_analyzer",
@@ -27,6 +26,10 @@ vim.lsp.enable({
 	-- oxlint for linting
 	"oxlint",
 })
+
+
+require('lspconfig').tsserver.setup{}
+
 
 vim.diagnostic.config({
 	-- virtual_lines = {

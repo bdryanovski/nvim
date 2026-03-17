@@ -33,6 +33,10 @@
       "rev": "8e2a91828210d6043744468f6d7027d256a41f42",
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
+    "fluoride": {
+      "rev": "3d2609a9bef2c8a6b7bc6b3bb8aa73fff470994c",
+      "src": "https://github.com/Sang-it/fluoride"
+    },
     "friendly-snippets": {
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "https://github.com/rafamadriz/friendly-snippets"
