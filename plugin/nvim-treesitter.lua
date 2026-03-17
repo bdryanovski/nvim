@@ -3,6 +3,7 @@ vim.pack.add({
 		"https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
     "https://github.com/nvim-treesitter/nvim-treesitter-context",
+    'https://github.com/neovim/nvim-lspconfig' ,
 })
 
 
@@ -18,6 +19,7 @@ require("nvim-treesitter").setup({ -- enable syntax highlighting
     "json",
     "javascript",
     "typescript",
+    "tsserver",
     "astro",
     "tsx",
     "yaml",
@@ -72,3 +74,4 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.treesitter.start()
   end,
 })
+
