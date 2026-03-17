@@ -1,0 +1,64 @@
+vim.pack.add({
+  "https://github.com/nvim-treesitter/nvim-treesitter",
+  "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+  "https://github.com/nvim-treesitter/nvim-treesitter-context",
+  "https://github.com/neovim/nvim-lspconfig",
+  "https://github.com/williamboman/mason.nvim",
+})
+
+require("mason").setup()
+
+local ensure_installed = {
+  "typescript-language-server",
+  "html-lsp",
+  "css-lsp",
+  "lua-language-server",
+  "prettier",
+  "stylua",
+  "eslint_d",
+  "gopls",
+  "rust-analyzer",
+  "astro-language-server",
+  "graphql-language-service-cli",
+  "intelephense",
+  "clangd",
+}
+
+vim.defer_fn(function()
+  local mr = require("mason-registry")
+  for _, name in ipairs(ensure_installed) do
+    local ok, pkg = pcall(mr.get_package, name)
+    if ok and not pkg:is_installed() then
+      pkg:install()
+    end
+  end
+end, 500)
+
+require("nvim-treesitter").setup()
+
+require("treesitter-context").setup({
+  enable = true,
+  max_lines = 0,
+  min_window_height = 0,
+  line_numbers = true,
+  multiline_threshold = 20,
+  trim_scope = "outer",
+  mode = "cursor",
+  separator = nil,
+  zindex = 20,
+  on_attach = nil,
+})
+
+vim.filetype.add({
+  extension = {
+    mdx = "mdx",
+  },
+})
+vim.treesitter.language.register("markdown", "mdx")
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "mdx",
+  callback = function()
+    vim.treesitter.start()
+  end,
+})
