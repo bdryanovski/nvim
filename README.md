@@ -80,16 +80,16 @@ custom wrapper at `lua/bdryanovski/pack.lua` that adds lazy loading via
 `vim.pack` loads everything eagerly by default. `pack.lua` extends it with two
 optional fields on a spec table:
 
-| Field     | Type                   | Description                               |
-|-----------|------------------------|-------------------------------------------|
-| `src`     | `string`               | Remote Git URL                            |
-| `dir`     | `string`               | Local filesystem path                     |
-| `name`    | `string`               | Override the inferred plugin name         |
-| `version` | `string\|Range`        | Version constraint forwarded to vim.pack  |
-| `event`   | `string\|string[]`     | Autocommand event(s) that trigger loading |
-| `ft`      | `string\|string[]`     | Filetype(s) that trigger loading          |
-| `config`  | `function`             | Called once after the plugin is loaded    |
-| `enabled` | `boolean`              | Set to `false` to skip entirely           |
+| Field     | Type               | Description                               |
+| --------- | ------------------ | ----------------------------------------- |
+| `src`     | `string`           | Remote Git URL                            |
+| `dir`     | `string`           | Local filesystem path                     |
+| `name`    | `string`           | Override the inferred plugin name         |
+| `version` | `string\|Range`    | Version constraint forwarded to vim.pack  |
+| `event`   | `string\|string[]` | Autocommand event(s) that trigger loading |
+| `ft`      | `string\|string[]` | Filetype(s) that trigger loading          |
+| `config`  | `function`         | Called once after the plugin is loaded    |
+| `enabled` | `boolean`          | Set to `false` to skip entirely           |
 
 Specs **without** `event`/`ft` are passed straight through to `vim.pack` and
 loaded immediately. Specs **with** `event`/`ft` are installed on disk but
@@ -144,71 +144,71 @@ pack.add({
 
 ### General
 
-| Mapping        | Mode | Description                          |
-|----------------|------|--------------------------------------|
-| `<leader>nh`   | n    | Clear search highlights              |
-| `<C-a>`        | n    | Select all                           |
-| `<C-s>`        | i/x/n/s | Save file                       |
-| `+` / `-`      | n    | Increment / Decrement number         |
-| `H`            | n    | Go to first non-blank character      |
-| `<leader>qq`   | n    | Quit all                             |
-| `<C-j>`        | n    | Go to next diagnostic                |
+| Mapping      | Mode    | Description                     |
+| ------------ | ------- | ------------------------------- |
+| `<leader>nh` | n       | Clear search highlights         |
+| `<C-a>`      | n       | Select all                      |
+| `<C-s>`      | i/x/n/s | Save file                       |
+| `+` / `-`    | n       | Increment / Decrement number    |
+| `H`          | n       | Go to first non-blank character |
+| `<leader>qq` | n       | Quit all                        |
+| `<C-j>`      | n       | Go to next diagnostic           |
 
 ### Window Management
 
-| Mapping        | Description                |
-|----------------|----------------------------|
-| `ss`           | Split horizontally         |
-| `sv`           | Split vertically           |
-| `<Space>`      | Go to next window          |
-| `s<arrow>`     | Go to directional window   |
-| `<C-Up/Down>`  | Resize window height       |
+| Mapping          | Description              |
+| ---------------- | ------------------------ |
+| `ss`             | Split horizontally       |
+| `sv`             | Split vertically         |
+| `<Space>`        | Go to next window        |
+| `s<arrow>`       | Go to directional window |
+| `<C-Up/Down>`    | Resize window height     |
 | `<C-Left/Right>` | Resize window width      |
 
 ### Tabs
 
-| Mapping        | Description            |
-|----------------|------------------------|
-| `<leader>te`   | Create new tab         |
-| `<Tab>`        | Next tab               |
-| `<S-Tab>`      | Previous tab           |
-| `<C-w>`        | Close current tab      |
+| Mapping      | Description       |
+| ------------ | ----------------- |
+| `<leader>te` | Create new tab    |
+| `<Tab>`      | Next tab          |
+| `<S-Tab>`    | Previous tab      |
+| `<C-w>`      | Close current tab |
 
 ### Fuzzy Finder (`fzf-lua`)
 
-| Mapping        | Description                    |
-|----------------|--------------------------------|
-| `<leader>ff`   | Find files                     |
-| `<leader>fb`   | Find buffers                   |
-| `<leader>f/`   | Recent files                   |
-| `<leader>fr`   | Resume last search             |
-| `<leader>fs`   | Live grep                      |
-| `<leader>fc`   | Search word under cursor       |
-| `<leader>fv`   | Search visual selection        |
+| Mapping      | Description              |
+| ------------ | ------------------------ |
+| `<leader>ff` | Find files               |
+| `<leader>fb` | Find buffers             |
+| `<leader>f/` | Recent files             |
+| `<leader>fr` | Resume last search       |
+| `<leader>fs` | Live grep                |
+| `<leader>fc` | Search word under cursor |
+| `<leader>fv` | Search visual selection  |
 
 ### LSP
 
-| Mapping        | Description                    |
-|----------------|--------------------------------|
-| `K`            | Hover documentation            |
-| `<C-k>`        | Signature help                 |
-| `<leader>d`    | Show line diagnostics          |
-| `gK`           | Toggle virtual diagnostic lines|
-| `<leader>th`   | Toggle inlay hints             |
-| `<leader>gr`   | LSP references                 |
-| `<leader>gd`   | LSP definitions                |
-| `<leader>li`   | LSP implementations            |
-| `<leader>lt`   | LSP type definitions           |
-| `<leader>ls`   | Document symbols               |
-| `<leader>lw`   | Workspace symbols              |
-| `<leader>ca`   | Code actions                   |
+| Mapping      | Description                     |
+| ------------ | ------------------------------- |
+| `K`          | Hover documentation             |
+| `<C-k>`      | Signature help                  |
+| `<leader>d`  | Show line diagnostics           |
+| `gK`         | Toggle virtual diagnostic lines |
+| `<leader>th` | Toggle inlay hints              |
+| `<leader>gr` | LSP references                  |
+| `<leader>gd` | LSP definitions                 |
+| `<leader>li` | LSP implementations             |
+| `<leader>lt` | LSP type definitions            |
+| `<leader>ls` | Document symbols                |
+| `<leader>lw` | Workspace symbols               |
+| `<leader>ca` | Code actions                    |
 
 ### Diagnostics
 
-| Mapping        | Description                |
-|----------------|----------------------------|
-| `<leader>dd`   | Document diagnostics       |
-| `<leader>dw`   | Workspace diagnostics      |
+| Mapping      | Description           |
+| ------------ | --------------------- |
+| `<leader>dd` | Document diagnostics  |
+| `<leader>dw` | Workspace diagnostics |
 
 ## LSP
 
@@ -217,16 +217,16 @@ Per-server configuration lives in individual files under `lsp/`.
 
 Enabled servers:
 
-| Language           | Server(s)                        |
-|--------------------|----------------------------------|
-| Lua                | `lua_ls`                         |
-| TypeScript / JS    | `ts_ls`, `html`, `cssls`         |
-| Astro              | `astro_ls`                       |
-| Rust               | `rust_analyzer`                  |
-| Go                 | `gopls`                          |
-| PHP                | `intelephense`, `phpactor`       |
-| C / C++            | `clangd`                         |
-| Linting/Formatting | `oxlint`, `oxfmt`                |
+| Language           | Server(s)                  |
+| ------------------ | -------------------------- |
+| Lua                | `lua_ls`                   |
+| TypeScript / JS    | `ts_ls`, `html`, `cssls`   |
+| Astro              | `astro_ls`                 |
+| Rust               | `rust_analyzer`            |
+| Go                 | `gopls`                    |
+| PHP                | `intelephense`, `phpactor` |
+| C / C++            | `clangd`                   |
+| Linting/Formatting | `oxlint`, `oxfmt`          |
 
 Capabilities are set globally in `plugin/blink.cmp.lua` and forwarded to
 every server via `vim.lsp.config("*", { capabilities = … })`.
@@ -269,13 +269,13 @@ Switch with `:colorscheme <name>`.
 Local plugins live under `lua/bdryanovski/custom/` and are loaded through
 `pack.lua` using `dir` specs.
 
-| Plugin         | Description                                      |
-|----------------|--------------------------------------------------|
-| `bookmarks`    | Named file bookmarks                             |
-| `indent`       | Custom indent guide rendering                    |
-| `navbar`       | Winbar breadcrumb showing file path / symbol     |
-| `peacock`      | Per-project window accent colours                |
-| `togglewords`  | Cycle through word variants (true/false, etc.)   |
+| Plugin        | Description                                    |
+| ------------- | ---------------------------------------------- |
+| `bookmarks`   | Named file bookmarks                           |
+| `indent`      | Custom indent guide rendering                  |
+| `navbar`      | Winbar breadcrumb showing file path / symbol   |
+| `peacock`     | Per-project window accent colours              |
+| `togglewords` | Cycle through word variants (true/false, etc.) |
 
 ## Dashboard ASCII Art
 
