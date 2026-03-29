@@ -13,6 +13,11 @@ vim.lsp.enable({
   "html",
   "astro_ls",
 
+  -- Biome: formatting + linting for JS/TS/TSX projects that have biome.json(c)
+  -- Only activates when a biome.json or biome.jsonc is found at the project root.
+  -- Handles format-on-save automatically (see lsp/biome.lua).
+  "biome",
+
   -- Rust LSP server for Rust development
   "rust_analyzer",
 
