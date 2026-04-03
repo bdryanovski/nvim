@@ -10,7 +10,6 @@ require("colorizer").setup({
 			virtualtext = { position = "after" },
 		},
 	},
-	lazy_load = true,
 	filetypes = {
 		"html",
 		"css",
