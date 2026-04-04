@@ -12,8 +12,6 @@
 --- The project MUST have a biome.json or biome.jsonc at its root.
 --- Without a config file Biome will not start for this project.
 
-local util = require("lspconfig.util")
-
 return {
   cmd = function(dispatchers, config)
     -- Prefer the project-local binary so the LSP uses the exact same version
@@ -101,3 +99,4 @@ return {
     end
   end,
 }
+

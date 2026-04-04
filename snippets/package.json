@@ -1,9 +1,6 @@
 {
   "name": "bdryanovski snippets",
   "author": "bdryanovski",
-  "engines": {
-    "vscode": "^1.11.0"
-  },
   "contributes": {
     "snippets": [
       {
@@ -25,5 +22,8 @@
         "path": "./typescript.json"
       }
     ]
+  },
+  "engines": {
+    "vscode": "^1.11.0"
   }
 }
