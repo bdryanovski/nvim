@@ -1,6 +1,6 @@
 vim.pack.add({
-	"https://github.com/nvim-treesitter/nvim-treesitter",
-	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
 	"https://github.com/nvim-treesitter/nvim-treesitter-context",
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/mason-org/mason.nvim",
@@ -31,7 +31,7 @@ local ensure_installed = {
 	"intelephense",
 	"clangd",
 }
-
+--
 vim.defer_fn(function()
 	local mr = require("mason-registry")
 	for _, name in ipairs(ensure_installed) do
@@ -41,6 +41,7 @@ vim.defer_fn(function()
 		end
 	end
 end, 500)
+--
 
 require("nvim-treesitter").setup()
 
@@ -68,5 +69,14 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "mdx",
 	callback = function()
 		vim.treesitter.start()
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function()
+		-- Enable treesitter highlighting and disable regex syntax
+		pcall(vim.treesitter.start)
+		-- Enable treesitter-based indentation
+		vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 	end,
 })
