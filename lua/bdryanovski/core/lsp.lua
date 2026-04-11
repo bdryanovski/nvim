@@ -1,8 +1,9 @@
--- Configuration for Neovim's built-in LSP client
--- Require this file in your init.lua or wherever you configure Neovim
+-- Configuration for Neovim's built-in LSP client.
 --
---
+-- This file enables language servers, sets global diagnostic behaviour and
+-- wires up buffer-local LSP keymaps and features on `LspAttach`.
 
+-- Register all language servers to be managed by Neovim's LSP client.
 vim.lsp.enable({
 	-- Lua LSP server for Neovim configuration
 	"lua_ls",
@@ -31,11 +32,12 @@ vim.lsp.enable({
 	-- CLangd for C/C++ development
 	"clangd",
 
-	-- oxfmt for formatting and linter
+	-- oxfmt / oxlint for JS/TS linting & formatting
 	"oxfmt",
 	"oxlint",
 })
 
+-- Global diagnostics configuration: how errors/warnings/hints are displayed.
 vim.diagnostic.config({
 	-- virtual_lines = {
 	-- 	current_line = true, -- Show virtual lines only on the current line
@@ -44,9 +46,9 @@ vim.diagnostic.config({
 	-- 	},
 	-- },
 	underline = true,
-	update_in_insert = false,
-	severity_sort = true,
-	virtual_text = false,
+	update_in_insert = false, -- Do not update diagnostics while typing.
+	severity_sort = true, -- Sort diagnostics by severity (errors first).
+	virtual_text = false, -- Disable inline virtual text; rely on signs and floats.
 	-- virtual_text = {
 	-- 	prefix = "●", -- Could be '●', '▎', 'x'
 	-- 	spacing = 4,
@@ -54,7 +56,7 @@ vim.diagnostic.config({
 	float = {
 		-- source = "if_many", -- Or "if_many", "always"
 		border = "rounded",
-		source = true,
+		source = true, -- Show which source (LSP/diagnostic) produced the message.
 	},
 	signs = {
 		text = {
@@ -70,8 +72,7 @@ vim.diagnostic.config({
 	},
 })
 
--- Make sure that the LSP float window has the same background as the Normal window
--- or also known as the Theme Window background.
+-- Make sure that LSP floating windows visually match the main Normal window.
 local set_hl_for_floating_window = function()
 	vim.api.nvim_set_hl(0, "NormalFloat", {
 		link = "Normal",
@@ -85,11 +86,11 @@ set_hl_for_floating_window()
 
 vim.api.nvim_create_autocmd("ColorScheme", {
 	pattern = "*",
-	desc = "Avoid overwritten by loading color schemes later",
+	desc = "Reset LSP float highlights after colorscheme changes",
 	callback = set_hl_for_floating_window,
 })
--- end of theme window background
 
+-- Per-buffer LSP setup once a client attaches to a buffer.
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("setup-lsp-attach", { clear = true }),
 	callback = function(event)
@@ -98,19 +99,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 		end
 
+		-- Hover & signature help
 		map("K", vim.lsp.buf.hover, "Hover documentation")
 		map("<C-k>", vim.lsp.buf.signature_help, "Signature help")
 
-		-- Use fzf-lua for code actions
+		-- Diagnostics for current line (uses global diagnostic config above).
 		map("<leader>d", vim.diagnostic.open_float, "Show line diagnostics")
 
-		-- Some configrations for the LSP client
+		-- Toggle virtual diagnostic lines (requires plugin that honours virtual_lines).
 		vim.keymap.set("n", "gK", function()
 			local new_config = not vim.diagnostic.config().virtual_lines
 			vim.diagnostic.config({ virtual_lines = new_config })
 		end, { desc = "Toggle diagnostic virtual_lines" })
 
-		-- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
+		-- Helper to smooth over Neovim 0.10 vs 0.11 differences.
 		---@param client vim.lsp.Client
 		---@param method vim.lsp.protocol.Method
 		---@param bufnr? integer some lsp support methods only in specific files
@@ -123,11 +125,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			end
 		end
 
-		-- The following two autocommands are used to highlight references of the
-		-- word under your cursor when your cursor rests there for a little while.
-		--    See `:help CursorHold` for information about when this is executed
-		--
-		-- When you move your cursor, the highlights will be cleared (the second autocommand).
+		-- Highlight references of the word under the cursor while it is idle.
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
 		if
 			client
@@ -155,8 +153,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			})
 		end
 
-		-- The following code creates a keymap to toggle inlay hints in your
-		-- code, if the language server you are using supports them
+		-- Keymap to toggle inlay hints, if the server supports them.
 		if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
 			map("<leader>th", function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
@@ -187,8 +184,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- 	end,
 -- })
 
+-- Slightly higher updatetime here to reduce how often CursorHold fires while LSP works.
 vim.opt.updatetime = 1000
--- Show errors and warnings in a floating window
+-- Show errors and warnings in a floating window on CursorHold (alternative UX).
 -- vim.api.nvim_create_autocmd("CursorHold", {
 -- 	callback = function()
 -- 		vim.diagnostic.open_float(nil, { focusable = false, source = "if_many" })
