@@ -1,8 +1,10 @@
+-- Global autocommands for quality-of-life behaviour.
+-- Loaded from `init.lua` after core options.
 local function augroup(name)
 	return vim.api.nvim_create_augroup("bdryanovski_" .. name, { clear = true })
 end
 
--- Highlight on yank
+-- Highlight text briefly after yanking, to give visual feedback.
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = augroup("highlight_yank"),
 	callback = function()
@@ -10,7 +12,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- resize splits if window got resized
+-- When the terminal window is resized, equalize all splits in all tabs.
 vim.api.nvim_create_autocmd({ "VimResized" }, {
 	group = augroup("resize_splits"),
 	callback = function()
@@ -20,7 +22,7 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 	end,
 })
 
--- go to last loc when opening a buffer
+-- Jump back to the last cursor position when reopening a file.
 vim.api.nvim_create_autocmd("BufReadPost", {
 	group = augroup("last_location"),
 	desc = "Go to the last location when opening a buffer",
@@ -33,7 +35,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	end,
 })
 
--- wrap and check for spell in text filetypes
+-- For commit messages and markdown, enforce textwidth and enable spell checking.
 vim.api.nvim_create_autocmd("FileType", {
 	group = augroup("wrap_spell"),
 	pattern = { "gitcommit", "markdown", "mdx" },
@@ -44,10 +46,11 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- Auto create dir when saving a file, in case some intermediate directory does not exist
+-- Automatically create missing directories before writing a file to disk.
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	group = augroup("auto_create_dir"),
 	callback = function(event)
+		-- Skip URIs like oil://, http:// etc.
 		if event.match:match("^%w%w+://") then
 			return
 		end
@@ -56,8 +59,9 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	end,
 })
 
--- automatically update the content of the file when it change
---
+-- Keep buffers in sync with changes on disk.
+-- `autoread` tells Neovim to check for external modifications, and the
+-- autocommand triggers `:checktime` on common idle/focus events.
 vim.opt.autoread = true
 vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
 	command = "if mode() != 'c' | checktime | endif",

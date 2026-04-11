@@ -38,6 +38,10 @@ nvim --startuptime startuptime.log .
 
 ## Structure
 
+> Core Neovim options (vim.opt and vim.g) are documented in
+> [`docs/options.md`](docs/options.md). Configuration file roles and
+> structure are described in [`docs/config-files.md`](docs/config-files.md).
+
 ```
 ~/.config/nvim/
 ├── init.lua                  # Entry point — options, module requires, autocmds

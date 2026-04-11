@@ -1,16 +1,21 @@
+-- Entry point for the configuration.
+-- Sets up fast Lua loading, global project paths and pulls in the core modules.
 if vim.loader then
+	-- Use the built-in Lua bytecode loader for faster startup.
 	vim.loader.enable()
 end
 
+-- If the terminal reports termguicolors support, make sure it is actually enabled.
 if vim.opt.termguicolors then
 	vim.opt.termguicolors = true
 end
 
--- Global variables.
+-- Global project directory roots used by custom UI (e.g. navbar) to label paths.
 vim.g.projects_dir = vim.env.HOME .. "/Projects"
 vim.g.github_projects_dir = vim.env.HOME .. "/Github"
 vim.g.work_projects_dir = vim.env.HOME .. "/Manual"
 
+-- Core layers: options, autocmds, keymaps, LSP and optional Neovide tweaks.
 require("bdryanovski.base")
 require("bdryanovski.base.autocmd")
 require("bdryanovski.base.mapping")
@@ -18,6 +23,7 @@ require("bdryanovski.core.lsp")
 require("bdryanovski.neovide")
 
 
+-- Whenever vim.pack installs or updates plugins, rebuild blink.cmp if needed.
 vim.api.nvim_create_autocmd("PackChanged", {
   callback = function(ev)
     local name, kind = ev.data.spec.name, ev.data.kind
@@ -47,4 +53,8 @@ vim.api.nvim_create_autocmd("PackChanged", {
 -- Source - https://stackoverflow.com/a/75967251
 -- Posted by trash bin, modified by community. See post 'Timeline' for change history
 -- Retrieved 2026-03-10, License - CC BY-SA 4.0
+-- Configure cursor shapes per mode:
+--   - Normal/Visual/Command: block cursor with custom blink timings.
+--   - Insert/Command-insert/Visual-ex: vertical bar.
+--   - Replace/Operator-pending: horizontal bar.
 vim.opt.guicursor = "n-v-c-sm:block-nCursor-blinkwait300-blinkon200-blinkoff150,i-ci-ve:ver100,r-cr-o:hor20"
