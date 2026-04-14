@@ -13,6 +13,8 @@ using `vim.pack` for plugin management with a custom lazy-loading layer.
 - **[Cargo / Rust](https://www.rust-lang.org/tools/install)** — required to build `blink.cmp`
 - **[delta](https://github.com/dandavison/delta)** — for git diff previews
 - **[Node.js](https://nodejs.org/)** — required by several LSP servers
+- **[tree-sitter CLI](https://github.com/tree-sitter/tree-sitter/blob/master/cli/README.md)** — required by nvim-treesitter (`main` branch) to compile parsers
+- **C compiler** (`cc`, `gcc`, or `clang`) — used by tree-sitter to compile parser shared libraries
 
 Optional, but recommended:
 
@@ -29,6 +31,32 @@ git clone <repo-url> ~/.config/nvim
 On first launch Neovim will install all plugins via `vim.pack`.
 `blink.cmp` requires a Rust build step that runs automatically after
 install/update (triggered by the `PackChanged` autocommand in `init.lua`).
+
+### Treesitter parsers
+
+This configuration uses the `main` branch of nvim-treesitter, which requires
+the **tree-sitter CLI** to download and compile parser grammars. Essential
+parsers (vim, lua, c, markdown, etc.) are auto-installed on startup via
+`plugin/treesitter.lua`.
+
+Install the CLI before launching Neovim:
+
+```bash
+# via npm (easiest)
+npm install -g tree-sitter-cli
+
+# or via cargo (requires libclang)
+cargo install tree-sitter-cli
+```
+
+> **Linux note:** Distribution-packaged Neovim often bundles older treesitter
+> parsers under `/usr/share/nvim/runtime/parser/` that are incompatible with
+> the query files shipped by nvim-treesitter. If you see treesitter query
+> errors on startup (e.g. `Invalid node type "tab"`), make sure the
+> tree-sitter CLI is installed and run `:TSInstall vim` (or whichever parser
+> is mentioned in the error) to compile a matching version. User-compiled
+> parsers in `~/.local/share/nvim/site/parser/` take precedence over the
+> system-bundled ones.
 
 Measure startup time at any point with:
 

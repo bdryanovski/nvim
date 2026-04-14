@@ -45,6 +45,13 @@ end, 500)
 
 require("nvim-treesitter").setup()
 
+-- Ensure essential treesitter parsers are installed.
+-- This prevents query/parser version mismatches when the system-bundled
+-- parsers (e.g. /usr/share/nvim/runtime/parser/) are older than the
+-- queries shipped by nvim-treesitter.
+local ensure_parsers = { "vim", "lua", "c", "markdown", "markdown_inline", "vimdoc", "query", "regex", "bash" }
+require("nvim-treesitter").install(ensure_parsers)
+
 require("treesitter-context").setup({
 	enable = true,
 	max_lines = 0,
