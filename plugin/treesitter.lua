@@ -30,6 +30,7 @@ local ensure_installed = {
 	"graphql-language-service-cli",
 	"intelephense",
 	"clangd",
+	"oxlint",
 }
 --
 vim.defer_fn(function()
@@ -45,12 +46,31 @@ end, 500)
 
 require("nvim-treesitter").setup()
 
--- Ensure essential treesitter parsers are installed.
--- This prevents query/parser version mismatches when the system-bundled
--- parsers (e.g. /usr/share/nvim/runtime/parser/) are older than the
--- queries shipped by nvim-treesitter.
+-- Ensure essential treesitter parsers are installed once.
+-- A stamp file records the installed parser list; the install is skipped on
+-- subsequent startups unless the list changes.
 local ensure_parsers = { "vim", "lua", "c", "markdown", "markdown_inline", "vimdoc", "query", "regex", "bash" }
-require("nvim-treesitter").install(ensure_parsers)
+
+local stamp_path = vim.fn.stdpath("data") .. "/nvim_ts_parsers.stamp"
+local sorted = vim.deepcopy(ensure_parsers)
+table.sort(sorted)
+local stamp_content = table.concat(sorted, ",")
+
+local already_installed = false
+local f = io.open(stamp_path, "r")
+if f then
+	already_installed = (f:read("*a") == stamp_content)
+	f:close()
+end
+
+if not already_installed then
+	require("nvim-treesitter").install(ensure_parsers)
+	local wf = io.open(stamp_path, "w")
+	if wf then
+		wf:write(stamp_content)
+		wf:close()
+	end
+end
 
 require("treesitter-context").setup({
 	enable = true,
