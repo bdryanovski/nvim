@@ -5,6 +5,13 @@ vim.g.mapleader = ','
 
 local keymap = vim.keymap
 
+-- Navigation arround panes
+--
+keymap.set('n', '<C-k>', ':wincmd k<CR>')
+keymap.set('n', '<C-j>', ':wincmd j<CR>')
+keymap.set('n', '<C-h>', ':wincmd h<CR>')
+keymap.set('n', '<C-l>', ':wincmd l<CR>')
+
 -- General editing
 keymap.set('n', '<leader>nh', ':nohl<CR>', { desc = 'Clear search highlights', silent = true })
 keymap.set('n', '+', '<C-a>', { desc = 'Increment number under the cursor', silent = true })

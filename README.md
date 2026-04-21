@@ -1,7 +1,7 @@
 # Neovim Configuration
 
-A personal Neovim configuration built on top of Neovim's native capabilities,
-using `vim.pack` for plugin management with a custom lazy-loading layer.
+A personal Neovim configuration built on top of Neovim's native capabilities, using `vim.pack` for
+plugin management with a custom lazy-loading layer.
 
 ## Requirements
 
@@ -13,7 +13,8 @@ using `vim.pack` for plugin management with a custom lazy-loading layer.
 - **[Cargo / Rust](https://www.rust-lang.org/tools/install)** — required to build `blink.cmp`
 - **[delta](https://github.com/dandavison/delta)** — for git diff previews
 - **[Node.js](https://nodejs.org/)** — required by several LSP servers
-- **[tree-sitter CLI](https://github.com/tree-sitter/tree-sitter/blob/master/cli/README.md)** — required by nvim-treesitter (`main` branch) to compile parsers
+- **[tree-sitter CLI](https://github.com/tree-sitter/tree-sitter/blob/master/cli/README.md)** —
+  required by nvim-treesitter (`main` branch) to compile parsers
 - **C compiler** (`cc`, `gcc`, or `clang`) — used by tree-sitter to compile parser shared libraries
 
 Optional, but recommended:
@@ -28,16 +29,15 @@ Clone directly into the Neovim config directory:
 git clone <repo-url> ~/.config/nvim
 ```
 
-On first launch Neovim will install all plugins via `vim.pack`.
-`blink.cmp` requires a Rust build step that runs automatically after
-install/update (triggered by the `PackChanged` autocommand in `init.lua`).
+On first launch Neovim will install all plugins via `vim.pack`. `blink.cmp` requires a Rust build
+step that runs automatically after install/update (triggered by the `PackChanged` autocommand in
+`init.lua`).
 
 ### Treesitter parsers
 
-This configuration uses the `main` branch of nvim-treesitter, which requires
-the **tree-sitter CLI** to download and compile parser grammars. Essential
-parsers (vim, lua, c, markdown, etc.) are auto-installed on startup via
-`plugin/treesitter.lua`.
+This configuration uses the `main` branch of nvim-treesitter, which requires the **tree-sitter CLI**
+to download and compile parser grammars. Essential parsers (vim, lua, c, markdown, etc.) are
+auto-installed on startup via `plugin/treesitter.lua`.
 
 Install the CLI before launching Neovim:
 
@@ -49,14 +49,12 @@ npm install -g tree-sitter-cli
 cargo install tree-sitter-cli
 ```
 
-> **Linux note:** Distribution-packaged Neovim often bundles older treesitter
-> parsers under `/usr/share/nvim/runtime/parser/` that are incompatible with
-> the query files shipped by nvim-treesitter. If you see treesitter query
-> errors on startup (e.g. `Invalid node type "tab"`), make sure the
-> tree-sitter CLI is installed and run `:TSInstall vim` (or whichever parser
-> is mentioned in the error) to compile a matching version. User-compiled
-> parsers in `~/.local/share/nvim/site/parser/` take precedence over the
-> system-bundled ones.
+> **Linux note:** Distribution-packaged Neovim often bundles older treesitter parsers under
+> `/usr/share/nvim/runtime/parser/` that are incompatible with the query files shipped by
+> nvim-treesitter. If you see treesitter query errors on startup (e.g. `Invalid node type "tab"`),
+> make sure the tree-sitter CLI is installed and run `:TSInstall vim` (or whichever parser is
+> mentioned in the error) to compile a matching version. User-compiled parsers in
+> `~/.local/share/nvim/site/parser/` take precedence over the system-bundled ones.
 
 Measure startup time at any point with:
 
@@ -66,9 +64,9 @@ nvim --startuptime startuptime.log .
 
 ## Structure
 
-> Core Neovim options (vim.opt and vim.g) are documented in
-> [`docs/options.md`](docs/options.md). Configuration file roles and
-> structure are described in [`docs/config-files.md`](docs/config-files.md).
+> Core Neovim options (vim.opt and vim.g) are documented in [`docs/options.md`](docs/options.md).
+> Configuration file roles and structure are described in
+> [`docs/config-files.md`](docs/config-files.md).
 
 ```
 ~/.config/nvim/
@@ -103,14 +101,13 @@ nvim --startuptime startuptime.log .
 
 ## Plugin Management
 
-Plugins are managed with Neovim's built-in `vim.pack`, augmented by a thin
-custom wrapper at `lua/bdryanovski/pack.lua` that adds lazy loading via
-`event` and `ft` triggers.
+Plugins are managed with Neovim's built-in `vim.pack`, augmented by a thin custom wrapper at
+`lua/bdryanovski/pack.lua` that adds lazy loading via `event` and `ft` triggers.
 
 ### `bdryanovski.pack` — lazy-loading wrapper
 
-`vim.pack` loads everything eagerly by default. `pack.lua` extends it with two
-optional fields on a spec table:
+`vim.pack` loads everything eagerly by default. `pack.lua` extends it with two optional fields on a
+spec table:
 
 | Field     | Type               | Description                               |
 | --------- | ------------------ | ----------------------------------------- |
@@ -123,9 +120,8 @@ optional fields on a spec table:
 | `config`  | `function`         | Called once after the plugin is loaded    |
 | `enabled` | `boolean`          | Set to `false` to skip entirely           |
 
-Specs **without** `event`/`ft` are passed straight through to `vim.pack` and
-loaded immediately. Specs **with** `event`/`ft` are installed on disk but
-deferred until the trigger fires.
+Specs **without** `event`/`ft` are passed straight through to `vim.pack` and loaded immediately.
+Specs **with** `event`/`ft` are installed on disk but deferred until the trigger fires.
 
 #### Examples
 
@@ -167,8 +163,8 @@ pack.add({
 })
 ```
 
-> `VeryLazy` is a special synthetic event: it maps to `UIEnter` deferred with
-> `vim.schedule`, mirroring the same convention used by lazy.nvim.
+> `VeryLazy` is a special synthetic event: it maps to `UIEnter` deferred with `vim.schedule`,
+> mirroring the same convention used by lazy.nvim.
 
 ## Key Bindings
 
@@ -244,8 +240,8 @@ pack.add({
 
 ## LSP
 
-LSP servers are enabled via `vim.lsp.enable()` in `lua/bdryanovski/core/lsp.lua`.
-Per-server configuration lives in individual files under `lsp/`.
+LSP servers are enabled via `vim.lsp.enable()` in `lua/bdryanovski/core/lsp.lua`. Per-server
+configuration lives in individual files under `lsp/`.
 
 Enabled servers:
 
@@ -260,17 +256,15 @@ Enabled servers:
 | C / C++            | `clangd`                   |
 | Linting/Formatting | `oxlint`, `oxfmt`          |
 
-Capabilities are set globally in `plugin/blink.cmp.lua` and forwarded to
-every server via `vim.lsp.config("*", { capabilities = … })`.
+Capabilities are set globally in `plugin/blink.cmp.lua` and forwarded to every server via
+`vim.lsp.config("*", { capabilities = … })`.
 
-Mason is used to install the underlying language-server binaries
-(`plugin/treesitter.lua`).
+Mason is used to install the underlying language-server binaries (`plugin/treesitter.lua`).
 
 ## Formatting
 
-Formatting is handled by **conform.nvim** with format-on-save enabled by
-default. The formatter selection falls back gracefully (prettier → oxfmt for
-JS/TS, stylua for Lua, gofmt for Go, etc.).
+Formatting is handled by **conform.nvim** with format-on-save enabled by default. The formatter
+selection falls back gracefully (prettier → oxfmt for JS/TS, stylua for Lua, gofmt for Go, etc.).
 
 To disable format-on-save:
 
@@ -282,8 +276,8 @@ To disable format-on-save:
 
 ## Themes
 
-Multiple colour schemes are configured and available. The active scheme is
-**rose-pine** (moon variant), loaded at the end of `plugin/themes.lua`.
+Multiple colour schemes are configured and available. The active scheme is **rose-pine** (moon
+variant), loaded at the end of `plugin/themes.lua`.
 
 Available schemes:
 
@@ -298,8 +292,8 @@ Switch with `:colorscheme <name>`.
 
 ## Custom Plugins
 
-Local plugins live under `lua/bdryanovski/custom/` and are loaded through
-`pack.lua` using `dir` specs.
+Local plugins live under `lua/bdryanovski/custom/` and are loaded through `pack.lua` using `dir`
+specs.
 
 | Plugin        | Description                                    |
 | ------------- | ---------------------------------------------- |
@@ -311,9 +305,8 @@ Local plugins live under `lua/bdryanovski/custom/` and are loaded through
 
 ## Dashboard ASCII Art
 
-The Snacks.nvim dashboard header uses Braille block characters. The full
-Braille Unicode table used for animations and signs is preserved here for
-reference:
+The Snacks.nvim dashboard header uses Braille block characters. The full Braille Unicode table used
+for animations and signs is preserved here for reference:
 
 ```
 ⠀⠁⠂⠃⠄⠅⠆⠇⠈⠉⠊⠋⠌⠍⠎⠏
@@ -334,4 +327,4 @@ reference:
 ⣰⣱⣲⣳⣴⣵⣶⣷⣸⣹⣺⣻⣼⣽⣾⣿
 ```
 
-..
+...
