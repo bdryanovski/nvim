@@ -23,7 +23,7 @@ vim.schedule(function()
     'biome',
 
     -- Rust LSP server for Rust development
-    'rust_analyzer',
+    -- 'rust_analyzer',
 
     -- Go LSP server for Go development
     'gopls',
