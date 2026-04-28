@@ -1,56 +1,51 @@
+-- Enable LSP servers and configure capabilities.
+--
+-- This file lives in after/plugin/ so it runs after all plugin/ files,
+-- guaranteeing that blink.cmp has been loaded via vim.pack.add().
+
+-- Register all language servers to be managed by Neovim's LSP client.
+vim.lsp.enable({
+  -- Lua LSP server for Neovim configuration
+  'lua_ls',
+
+  -- Web development LSP servers for JavaScript, TypeScript, CSS, HTML, and Astro
+  'typescript-language-server',
+  'cssls',
+  'html',
+  'astro_ls',
+
+  -- Biome: formatting + linting for JS/TS/TSX projects that have biome.json(c)
+  -- Only activates when a biome.json or biome.jsonc is found at the project root.
+  -- Handles format-on-save automatically (see lsp/biome.lua).
+  'biome',
+
+  -- Rust LSP server for Rust development
+  -- 'rust_analyzer',
+
+  -- Go LSP server for Go development
+  'gopls',
+
+  -- PHP LSP servers for PHP development
+  'intelephense',
+  'phpactor',
+
+  -- CLangd for C/C++ development
+  'clangd',
+
+  -- oxfmt / oxlint for JS/TS linting & formatting
+  'oxfmt',
+  'oxlint',
+})
+
+
 -- Configuration for Neovim's built-in LSP client.
 --
 -- This file enables language servers, sets global diagnostic behaviour and
 -- wires up buffer-local LSP keymaps and features on `LspAttach`.
 
--- Defer LSP configuration until after plugins are loaded.
--- This is necessary because vim.pack loads plugins after init.lua runs.
-vim.schedule(function()
-  -- Register all language servers to be managed by Neovim's LSP client.
-  vim.lsp.enable({
-    -- Lua LSP server for Neovim configuration
-    'lua_ls',
-
-    -- Web development LSP servers for JavaScript, TypeScript, CSS, HTML, and Astro
-    'typescript-language-server',
-    'cssls',
-    'html',
-    'astro_ls',
-
-    -- Biome: formatting + linting for JS/TS/TSX projects that have biome.json(c)
-    -- Only activates when a biome.json or biome.jsonc is found at the project root.
-    -- Handles format-on-save automatically (see lsp/biome.lua).
-    'biome',
-
-    -- Rust LSP server for Rust development
-    -- 'rust_analyzer',
-
-    -- Go LSP server for Go development
-    'gopls',
-
-    -- PHP LSP servers for PHP development
-    'intelephense',
-    'phpactor',
-
-    -- CLangd for C/C++ development
-    'clangd',
-
-    -- oxfmt / oxlint for JS/TS linting & formatting
-    'oxfmt',
-    'oxlint',
-  })
-
-  local capabilities = require('blink.cmp').get_lsp_capabilities(nil, true)
-  -- local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-  vim.lsp.config('*', {
-    capabilities = capabilities,
-    flags = {
-      debounce_text_changes = 150,
-    },
-    root_markets = { '.git', 'package.json', 'tsconfig.json', 'jsconfig.json' },
-  })
-end)
+-- LSP server enablement and capability configuration has been moved to
+-- after/plugin/lsp-capabilities.lua so that it runs after all plugin/ files
+-- have loaded (ensuring blink.cmp is available).
 
 -- Global diagnostics configuration: how errors/warnings/hints are displayed.
 vim.diagnostic.config({
