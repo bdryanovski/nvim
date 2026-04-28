@@ -74,6 +74,10 @@ keymap.set({ 'n', 'v' }, '<Down>', '<Nop>', { noremap = true })
 keymap.set({ 'n', 'v' }, '<Left>', '<Nop>', { noremap = true })
 keymap.set({ 'n', 'v' }, '<Right>', '<Nop>', { noremap = true })
 
+-- Disable PageUp/PageDown to avoid accidental large jumps.
+keymap.set({ 'n', 'v', 'i' }, '<PageUp>', '<Nop>', { noremap = true })
+keymap.set({ 'n', 'v', 'i' }, '<PageDown>', '<Nop>', { noremap = true })
+
 -- neovim undotree
 keymap.set('n', '<leader>u', function()
   vim.cmd.packadd('nvim.undotree')
