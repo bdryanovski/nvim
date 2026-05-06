@@ -1,4 +1,4 @@
-# Neovim Configuration
+# Neovim Configuration.
 
 A personal Neovim configuration built on top of Neovim's native capabilities, using `vim.pack` for
 plugin management with a custom lazy-loading layer.
