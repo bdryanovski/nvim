@@ -88,6 +88,7 @@ local set_hl_for_floating_window = function()
     link = 'Normal',
   })
   vim.api.nvim_set_hl(0, 'FloatBorder', {
+    fg = vim.api.nvim_get_hl(0, { name = 'Comment' }).fg, -- Use Comment color for visible border
     bg = 'none',
   })
 end
