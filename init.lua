@@ -1,5 +1,5 @@
 -- Entry point for the configuration.
--- Sets up fast Lua loading, global project paths and pulls 
+-- Sets up fast Lua loading, global project paths and pulls
 -- in the core modules.
 if vim.loader then
   -- Use the built-in Lua bytecode loader for faster startup.
@@ -82,8 +82,8 @@ vim.api.nvim_create_autocmd('PackChanged', {
 --   - Normal/Visual/Command: block cursor with custom blink timings.
 --   - Insert/Command-insert/Visual-ex: vertical bar.
 --   - Replace/Operator-pending: horizontal bar.
-vim.opt.guicursor =
-  'n-v-c-sm:block-nCursor-blinkwait300-blinkon200-blinkoff150,i-ci-ve:ver100,r-cr-o:hor20'
+vim.opt.guicursor = ''
+-- 'n-v-c-sm:block-nCursor-blinkwait300-blinkon200-blinkoff150,i-ci-ve:ver100,r-cr-o:hor20'
 
 -- vim.opt.gcr = {
 -- 	"i-c-ci-ve:blinkoff500-blinkon500-block-TermCursor",
