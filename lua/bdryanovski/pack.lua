@@ -80,7 +80,7 @@ function M.add(specs)
   local lazy_specs = {}
 
   for _, spec in ipairs(items) do
-    if type(spec) == "string" then
+    if type(spec) == "string" th
       table.insert(eager_remote, spec)
     elseif spec.enabled == false then
       -- skip disabled
