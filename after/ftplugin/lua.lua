@@ -15,6 +15,10 @@ require('blink.cmp').setup({
         ['<CR>'] = { 'accept', 'fallback' },
     },
 
+    cmdline = {
+        keymap = { preset = 'inherit' },
+    },
+
     appearance = {
         nerd_font_variant = 'mono',
     },

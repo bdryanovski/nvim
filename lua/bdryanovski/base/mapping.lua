@@ -5,6 +5,8 @@ vim.g.mapleader = ','
 
 local keymap = vim.keymap
 
+keymap.set('i', '<C-c>', '<ESC>', { desc = 'Escape', silent = true })
+
 -- Navigation arround panes
 --
 keymap.set('n', '<C-k>', ':wincmd k<CR>')
@@ -29,10 +31,10 @@ keymap.set('n', '<tab>', ':tabnext<CR>', { desc = 'Switch to next tab', silent =
 keymap.set('n', '<s-tab>', ':tabprev<CR>', { desc = 'Go to previous tab', silent = true })
 keymap.set('n', '<C-w>', ':tabclose<Return>', { desc = 'Close current tab', silent = true })
 keymap.set(
-  'n',
-  '<C-to>',
-  ':tabonly<CR>',
-  { desc = 'Close all other tabs', noremap = true, silent = true }
+    'n',
+    '<C-to>',
+    ':tabonly<CR>',
+    { desc = 'Close all other tabs', noremap = true, silent = true }
 )
 
 -- Window management (splits and navigation)
@@ -65,7 +67,7 @@ keymap.set('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit all' })
 
 -- Diagnostics
 keymap.set('n', '<C-j>', function()
-  vim.diagnostic.goto_next({ popup_opts = { border = 'rounded' } })
+    vim.diagnostic.goto_next({ popup_opts = { border = 'rounded' } })
 end, { desc = 'Go to next diagnostic', silent = true })
 
 -- Hardmode: disable arrow keys in normal/visual mode to encourage hjkl.
@@ -80,6 +82,6 @@ keymap.set({ 'n', 'v', 'i' }, '<PageDown>', '<Nop>', { noremap = true })
 
 -- neovim undotree
 keymap.set('n', '<leader>u', function()
-  vim.cmd.packadd('nvim.undotree')
-  require('undotree').open()
+    vim.cmd.packadd('nvim.undotree')
+    require('undotree').open()
 end, { desc = 'Toggle undo tree' })
