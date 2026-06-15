@@ -1,6 +1,13 @@
 vim.pack.add({
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects', version = 'main' },
+    { src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
+})
+
+require('nvim-treesitter-context').setup({
+    multiwindow = true,
+    line_numbers = false,
+    multiline_threshold = 2,
 })
 
 local treesitter = require('nvim-treesitter')
