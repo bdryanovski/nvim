@@ -1,6 +1,6 @@
 -- Entry point for the configuration.
 -- Sets up fast Lua loading, global project paths and pulls
--- in the core modules.
+-- in the core modules....
 if vim.loader then
     -- Use the built-in Lua bytecode loader for faster startup.
     vim.loader.enable()
