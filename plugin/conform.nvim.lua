@@ -132,6 +132,7 @@ conform.setup({
         typescriptreact = function(bufnr)
             return { first(bufnr, 'prettier'), 'oxfmt' }
         end,
+        prisma = { lsp_format = 'prefer' },
         css = { 'prettier' },
         html = { 'prettier' },
         yaml = { 'prettier' },

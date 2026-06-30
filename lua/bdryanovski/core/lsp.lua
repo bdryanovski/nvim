@@ -13,6 +13,7 @@ vim.lsp.enable({
     'cssls',
     'html',
     'astro_ls',
+    'prismals',
 
     -- Biome: formatting + linting for JS/TS/TSX projects that have biome.json(c)
     -- Only activates when a biome.json or biome.jsonc is found at the project root.

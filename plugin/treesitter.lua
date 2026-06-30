@@ -4,13 +4,20 @@ vim.pack.add({
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter-context' },
 })
 
-require('nvim-treesitter-context').setup({
-    multiwindow = true,
-    line_numbers = false,
-    multiline_threshold = 2,
-})
+local ok_context, ts_context = pcall(require, 'nvim-treesitter-context')
+if ok_context then
+    ts_context.setup({
+        multiwindow = true,
+        line_numbers = false,
+        multiline_threshold = 2,
+    })
+end
 
-local treesitter = require('nvim-treesitter')
+local ok_ts, treesitter = pcall(require, 'nvim-treesitter')
+if not ok_ts then
+    vim.notify('nvim-treesitter not found', vim.log.levels.WARN)
+    return
+end
 
 treesitter.install({
     'vim',
@@ -34,6 +41,7 @@ treesitter.install({
     'dockerfile',
     'gitignore',
     'vimdoc',
+    'prisma',
     'c',
     'rust',
 })

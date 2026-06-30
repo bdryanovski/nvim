@@ -32,10 +32,10 @@ if vim.g.neovide then
     g.neovide_fullscreen = false
 
     -- neovide blending
-    vim.opt.winblend = 100
-    vim.opt.pumblend = 100
-    vim.g.neovide_floating_blur_amount_x = 30
-    vim.g.neovide_floating_blur_amount_y = 30
+    -- vim.opt.winblend = 100
+    -- vim.opt.pumblend = 100
+    -- vim.g.neovide_floating_blur_amount_x = 30
+    -- vim.g.neovide_floating_blur_amount_y = 30
 
     -- GUI font used by Neovide. Must be a family name macOS Core Text exposes.
     -- macOS collapses Iosevka Custom weights/widths into one "Iosevka Custom"
