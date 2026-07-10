@@ -70,12 +70,12 @@ vim.opt.clipboard:append('unnamedplus') -- Use the system clipboard as the defau
 
 -- Fill characters (folds, diff, end-of-buffer, etc.)
 vim.opt.fillchars = {
-  foldopen = '',
-  foldclose = '',
-  fold = ' ',
-  foldsep = ' ',
-  diff = '╱',
-  eob = ' ', -- Hide the default ~ at end-of-buffer.
+    foldopen = '',
+    foldclose = '',
+    fold = ' ',
+    foldsep = ' ',
+    diff = '╱',
+    eob = ' ', -- Hide the default ~ at end-of-buffer.
 }
 
 -- Split behaviour
@@ -89,10 +89,10 @@ vim.opt.undofile = true -- Enable persistent undo.
 vim.opt.undolevels = 10000 -- Large undo history.
 vim.opt.updatetime = 200 -- CursorHold & swap write delay (ms).
 
--- Folding (Treesitter-based)
-vim.opt.foldlevel = 4 -- Keep folds up to this level open by default.
-vim.opt.foldmethod = 'expr' -- Use an expression to decide folds.
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()' -- Use Treesitter folding expression.
+-- Folding: Managed by bdryanovski.custom.fold module
+-- See plugin/custom.fold.lua for configuration
+-- Built-in keymaps: zc (close), zo (open), za (toggle), zR (open all), zM (close all)
+-- Custom keymaps: zp (peek), zf (focus)
 
 -- Horizontal scrolling / mappings
 vim.opt.sidescrolloff = 8 -- Keep 8 columns visible to the left/right of the cursor.
@@ -100,5 +100,5 @@ vim.opt.timeoutlen = 300 -- Mapping timeout (ms) for multi-key mappings.
 
 -- Neovim 0.10+ built-in smooth scrolling
 if vim.fn.has('nvim-0.10') == 1 then
-  vim.opt.smoothscroll = true
+    vim.opt.smoothscroll = true
 end
