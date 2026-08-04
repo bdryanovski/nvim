@@ -51,10 +51,28 @@ require('oil-lsp-diagnostics').setup()
 
 oil.setup({
     default_file_explorer = true,
+    delete_to_trash = true,
 
     columns = {
         'icon',
         'size',
+    },
+
+    view_options = {
+        -- Some loverly comment
+        show_hidden = true,
+        is_always_hidden = function(name, _)
+            return name == '..' or name == '.git'
+        end,
+    },
+
+    buf_options = {
+        buflisted = true,
+        bufhidden = 'hide',
+    },
+
+    lsp_file_methods = {
+        autosave_changes = true,
     },
 
     -- Documentation for myself

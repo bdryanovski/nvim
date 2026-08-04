@@ -33,6 +33,10 @@
       "rev": "261e70f26e6c02562495f900399234c4e26daa2f",
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
+    "diffview.nvim": {
+      "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
+      "src": "https://github.com/sindrets/diffview.nvim"
+    },
     "fluoride": {
       "rev": "df30862c6144f250250a340d183d0d324fe6f075",
       "src": "https://github.com/Sang-it/fluoride"
