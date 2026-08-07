@@ -81,6 +81,10 @@
       "rev": "221ce6b2d999187044529f49da6554a92f740a96",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
+    "luna.nvim": {
+      "rev": "873b8bc9909fc84041e57e9a1dab66ac43479661",
+      "src": "https://github.com/WTFox/luna.nvim"
+    },
     "mason-lspconfig.nvim": {
       "rev": "67029ccdac1ef8941e13b826417bc0ffac24cc86",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
