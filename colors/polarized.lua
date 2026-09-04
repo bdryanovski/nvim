@@ -10,66 +10,68 @@ require("xeno").setup({
   transparent = false,
   foreground = "#c9dde2",
   _custom_colors = {
+    aurora = "#3ddc97",
+    violet = "#9b7fd4",
     cyan = "#4fd9e8",
     frost = "#a8e6cf",
+    teal = "#2ec4b6",
     glow_pink = "#e39fc2",
     ice = "#8ecae6",
-    indigo = "#7c93e0",
-    teal = "#2ec4b6",
-    violet = "#9b7fd4",
-    aurora = "#3ddc97"
+    indigo = "#7c93e0"
   },
   highlights = {
     editor = {
+      Visual = {
+        bg = {
+          __xeno_opaque = true,
+          fg = "@aurora.500",
+          opacity = 0.18
+        }
+      },
+      CursorLine = {
+        bg = {
+          __xeno_opaque = true,
+          fg = "@teal.600",
+          opacity = 0.06
+        }
+      },
       MatchParen = {
-        bold = true,
-        fg = "@frost.100"
+        fg = "@frost.100",
+        bold = true
       },
       CursorLineNr = {
-        bold = true,
-        fg = "@frost.100"
+        fg = "@frost.100",
+        bold = true
       },
       Search = {
         fg = "@foreground.50",
         bg = {
+          __xeno_opaque = true,
           fg = "@cyan.400",
-          opacity = 0.25,
-          __xeno_opaque = true
+          opacity = 0.25
         }
       },
       IncSearch = {
         fg = "@background.950",
         bg = {
+          __xeno_opaque = true,
           fg = "@frost.300",
-          opacity = 0.35,
-          __xeno_opaque = true
-        }
-      },
-      Visual = {
-        bg = {
-          fg = "@aurora.500",
-          opacity = 0.18,
-          __xeno_opaque = true
-        }
-      },
-      CursorLine = {
-        bg = {
-          fg = "@teal.600",
-          opacity = 0.06,
-          __xeno_opaque = true
+          opacity = 0.35
         }
       }
     },
     syntax = {
-      Keyword = {
-        fg = "@violet.300"
+      Function = {
+        fg = "@teal.300"
       },
-      Comment = {
-        italic = true,
-        fg = "@foreground.400"
+      Operator = {
+        fg = "@cyan.300"
       },
-      Type = {
-        fg = "@cyan.200"
+      Number = {
+        fg = "@frost.100"
+      },
+      Boolean = {
+        fg = "@frost.100"
       },
       ["@lsp.typemod.property.declaration"] = {
         link = "@property"
@@ -92,8 +94,8 @@ require("xeno").setup({
       ["@type"] = {
         link = "Type"
       },
-      ["@lsp.type.function"] = {
-        link = "@function"
+      Keyword = {
+        fg = "@violet.300"
       },
       ["@function"] = {
         link = "Function"
@@ -104,8 +106,8 @@ require("xeno").setup({
       ["@lsp.type.variable"] = {
         link = "@variable"
       },
-      ["@variable"] = {
-        link = "Variable"
+      Type = {
+        fg = "@cyan.200"
       },
       ["@punctuation.delimiter"] = {
         link = "Punctuation"
@@ -122,21 +124,21 @@ require("xeno").setup({
       ["@operator"] = {
         link = "Operator"
       },
-      Function = {
-        fg = "@teal.300"
+      ["@constructor"] = {
+        fg = "@foreground.400"
       },
       ["@variable.builtin"] = {
         fg = "@indigo.200"
       },
-      Operator = {
-        fg = "@cyan.300"
-      },
       ["@constant.builtin"] = {
-        bold = true,
-        fg = "@glow_pink.100"
+        fg = "@glow_pink.100",
+        bold = true
       },
       ["@constant"] = {
         fg = "@frost.200"
+      },
+      Conditional = {
+        fg = "@indigo.300"
       },
       ["@boolean"] = {
         link = "Boolean"
@@ -156,11 +158,14 @@ require("xeno").setup({
       ["@keyword.import"] = {
         fg = "@teal.400"
       },
+      ["@variable"] = {
+        link = "Variable"
+      },
       ["@keyword.operator"] = {
         fg = "@cyan.300"
       },
-      Variable = {
-        fg = "@foreground.300"
+      ["@lsp.type.function"] = {
+        link = "@function"
       },
       ["@keyword.repeat"] = {
         link = "Conditional"
@@ -174,23 +179,18 @@ require("xeno").setup({
       ["@keyword.return"] = {
         link = "Keyword"
       },
-      Number = {
-        fg = "@frost.100"
-      },
-      ["@constructor"] = {
-        fg = "@foreground.400"
-      },
-      Boolean = {
-        fg = "@frost.100"
-      },
       Property = {
         fg = "@ice.300"
       },
+      Variable = {
+        fg = "@foreground.300"
+      },
+      Comment = {
+        italic = true,
+        fg = "@foreground.400"
+      },
       String = {
         fg = "@aurora.100"
-      },
-      Conditional = {
-        fg = "@indigo.300"
       }
     }
   },

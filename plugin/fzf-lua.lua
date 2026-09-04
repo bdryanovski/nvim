@@ -15,10 +15,16 @@ fzf.setup({
         height = 0.85, -- window height
         width = 0.80, -- window width
         border = 'rounded', -- window border type
-        backdrop = 20,
+        backdrop = 80,
+        fullscreen = false,
+        treesitter = {
+            enabled = true,
+            fzf_colors = { ['hl'] = '-1:reverse', ['hl+'] = '-1:reverse' },
+        },
         preview = {
             border = 'rounded', -- preview border type
-            layout = 'vertical', -- vertical preview layout
+            wrap = true,
+            layout = 'flex', -- vertical preview layout
             silent = true, -- don't show preview window on startup
             scrollbar = 'float', -- preview scrollbar type
             delay = 50, -- delay(ms) displaying the preview
@@ -73,7 +79,9 @@ fzf.setup({
     files = {
         previewers = 'bat',
         prompt = 'Files❯ ',
+        multiprocess = true,
         git_icons = true,
+        file_icons = true,
         color_icons = true,
         find_opts = [[-type f -not -path "*/\.git/*" -not -path "*/node_modules/*"]],
         rg_opts = "--color=never --files --hidden --follow -g '!{.git,node_modules}/*'",
@@ -92,15 +100,42 @@ fzf.setup({
             end,
         },
     },
+    colorschemes = {
+        prompt = 'Colorschemes❯ ',
+        live_preview = true, -- apply the colorscheme on preview?
+        actions = { ['enter'] = require('fzf-lua').actions.colorscheme },
+        winopts = { height = 0.55, width = 0.30 },
+        -- uncomment to ignore colorschemes names (lua patterns)
+        -- ignore_patterns   = { "^delek$", "^blue$" },
+    },
+    keymaps = {
+        prompt = 'Keymaps> ',
+        winopts = { preview = { layout = 'vertical' } },
+        fzf_opts = { ['--tiebreak'] = 'index' },
+        -- by default, we ignore <Plug> and <SNR> mappings
+        -- set `ignore_patterns = false` to disable filtering
+        ignore_patterns = { '^<SNR>', '^<Plug>' },
+        show_desc = true,
+        show_details = true,
+        actions = {
+            ['enter'] = actions.keymap_apply,
+            ['ctrl-s'] = actions.keymap_split,
+            ['ctrl-v'] = actions.keymap_vsplit,
+            ['ctrl-t'] = actions.keymap_tabedit,
+        },
+    },
     grep = {
         prompt = 'Rg❯ ',
         input_prompt = 'Grep For❯ ',
+        multiprocess = true,
+        git_icons = true,
         rg_opts = '--column --line-number --no-heading --color=always --smart-case --max-columns=512',
         grep_opts = '--binary-files=without-match --line-number --recursive --color=auto --perl-regexp -e',
     },
     lsp = {
         prompt = '❯ ',
         -- LSP specific options
+        file_icons = true,
         cwd_only = false,
         git_icons = false,
         symbols = {
@@ -145,7 +180,7 @@ fzf.setup({
             prompt = 'Code Actions> ',
             no_preview_msg = 'Preview not available for this action',
             preview_only_utf8 = true,
-            dynamic_preview = false,
+            dynamic_preview = true,
             path_shorten = false, -- Don't shorten path to improve compatibility
             check_preview_win = function(winnr)
                 -- Fix for paths with spaces and special characters
@@ -221,3 +256,6 @@ vim.keymap.set('n', '<leader>dw', fzf.diagnostics_workspace, { desc = 'Workspace
 vim.keymap.set('n', '<leader>gc', fzf.git_commits, { desc = 'Git commits' })
 vim.keymap.set('n', '<leader>gb', fzf.git_branches, { desc = 'Git branches' })
 vim.keymap.set('n', '<leader>gs', fzf.git_status, { desc = 'Git status' })
+
+-- Help
+vim.keymap.set('n', '<leader>?', fzf.keymaps, { desc = 'Neovim Keymaps definitions' })
