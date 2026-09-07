@@ -6,7 +6,9 @@ if vim.loader then
     vim.loader.enable()
 end
 
-vim.opt.messagesopt:append({ 'timeout:4000', 'maxheight:50' })
+if vim.fn.has('nvim-0.13.0') == 1 then
+    vim.opt.messagesopt:append({ 'timeout:4000', 'maxheight:50' })
+end
 
 require('vim._core.ui2').enable({
     enable = true, -- Whether to enable or disable the UI.
