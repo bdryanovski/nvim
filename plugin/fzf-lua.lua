@@ -3,6 +3,7 @@ vim.pack.add({
 })
 
 local fzf = require('fzf-lua')
+local actions = fzf.actions
 fzf.register_ui_select()
 
 -- Setup default options

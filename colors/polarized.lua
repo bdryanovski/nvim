@@ -10,68 +10,37 @@ require("xeno").setup({
   transparent = false,
   foreground = "#c9dde2",
   _custom_colors = {
-    aurora = "#3ddc97",
-    violet = "#9b7fd4",
-    cyan = "#4fd9e8",
-    frost = "#a8e6cf",
     teal = "#2ec4b6",
-    glow_pink = "#e39fc2",
+    aurora = "#3ddc97",
+    cyan = "#4fd9e8",
     ice = "#8ecae6",
-    indigo = "#7c93e0"
+    violet = "#9b7fd4",
+    indigo = "#7c93e0",
+    frost = "#a8e6cf",
+    glow_pink = "#e39fc2"
   },
   highlights = {
-    editor = {
-      Visual = {
-        bg = {
-          __xeno_opaque = true,
-          fg = "@aurora.500",
-          opacity = 0.18
-        }
-      },
-      CursorLine = {
-        bg = {
-          __xeno_opaque = true,
-          fg = "@teal.600",
-          opacity = 0.06
-        }
-      },
-      MatchParen = {
-        fg = "@frost.100",
-        bold = true
-      },
-      CursorLineNr = {
-        fg = "@frost.100",
-        bold = true
-      },
-      Search = {
-        fg = "@foreground.50",
-        bg = {
-          __xeno_opaque = true,
-          fg = "@cyan.400",
-          opacity = 0.25
-        }
-      },
-      IncSearch = {
-        fg = "@background.950",
-        bg = {
-          __xeno_opaque = true,
-          fg = "@frost.300",
-          opacity = 0.35
-        }
-      }
-    },
     syntax = {
-      Function = {
-        fg = "@teal.300"
+      Type = {
+        fg = "@cyan.200"
       },
-      Operator = {
-        fg = "@cyan.300"
+      ["@keyword.repeat"] = {
+        link = "Conditional"
+      },
+      ["@keyword.conditional"] = {
+        link = "Conditional"
+      },
+      ["@keyword.function"] = {
+        link = "Conditional"
+      },
+      ["@keyword.return"] = {
+        link = "Keyword"
       },
       Number = {
         fg = "@frost.100"
       },
-      Boolean = {
-        fg = "@frost.100"
+      Function = {
+        fg = "@teal.300"
       },
       ["@lsp.typemod.property.declaration"] = {
         link = "@property"
@@ -94,8 +63,8 @@ require("xeno").setup({
       ["@type"] = {
         link = "Type"
       },
-      Keyword = {
-        fg = "@violet.300"
+      ["@lsp.type.function"] = {
+        link = "@function"
       },
       ["@function"] = {
         link = "Function"
@@ -106,11 +75,11 @@ require("xeno").setup({
       ["@lsp.type.variable"] = {
         link = "@variable"
       },
-      Type = {
-        fg = "@cyan.200"
+      ["@variable"] = {
+        link = "Variable"
       },
-      ["@punctuation.delimiter"] = {
-        link = "Punctuation"
+      Variable = {
+        fg = "@foreground.300"
       },
       Punctuation = {
         fg = "@foreground.400"
@@ -130,15 +99,21 @@ require("xeno").setup({
       ["@variable.builtin"] = {
         fg = "@indigo.200"
       },
+      Property = {
+        fg = "@ice.300"
+      },
+      Boolean = {
+        fg = "@frost.100"
+      },
       ["@constant.builtin"] = {
-        fg = "@glow_pink.100",
-        bold = true
+        bold = true,
+        fg = "@glow_pink.100"
       },
       ["@constant"] = {
         fg = "@frost.200"
       },
-      Conditional = {
-        fg = "@indigo.300"
+      ["@string.escape"] = {
+        fg = "@ice.100"
       },
       ["@boolean"] = {
         link = "Boolean"
@@ -146,8 +121,12 @@ require("xeno").setup({
       ["@number"] = {
         link = "Number"
       },
-      ["@string.escape"] = {
-        fg = "@ice.100"
+      Comment = {
+        fg = "@foreground.400",
+        italic = true
+      },
+      Keyword = {
+        fg = "@violet.300"
       },
       ["@string"] = {
         link = "String"
@@ -155,49 +134,70 @@ require("xeno").setup({
       ["@function.builtin"] = {
         fg = "@cyan.100"
       },
+      ["@punctuation.delimiter"] = {
+        link = "Punctuation"
+      },
       ["@keyword.import"] = {
         fg = "@teal.400"
       },
-      ["@variable"] = {
-        link = "Variable"
+      String = {
+        fg = "@aurora.100"
       },
       ["@keyword.operator"] = {
         fg = "@cyan.300"
       },
-      ["@lsp.type.function"] = {
-        link = "@function"
+      Operator = {
+        fg = "@cyan.300"
       },
-      ["@keyword.repeat"] = {
-        link = "Conditional"
+      Conditional = {
+        fg = "@indigo.300"
+      }
+    },
+    editor = {
+      CursorLineNr = {
+        bold = true,
+        fg = "@frost.100"
       },
-      ["@keyword.conditional"] = {
-        link = "Conditional"
+      IncSearch = {
+        fg = "@background.950",
+        bg = {
+          opacity = 0.35,
+          __xeno_opaque = true,
+          fg = "@frost.300"
+        }
       },
-      ["@keyword.function"] = {
-        link = "Conditional"
+      MatchParen = {
+        bold = true,
+        fg = "@frost.100"
       },
-      ["@keyword.return"] = {
-        link = "Keyword"
+      CursorLine = {
+        bg = {
+          opacity = 0.06,
+          __xeno_opaque = true,
+          fg = "@teal.600"
+        }
       },
-      Property = {
-        fg = "@ice.300"
+      Visual = {
+        bg = {
+          opacity = 0.18,
+          __xeno_opaque = true,
+          fg = "@aurora.500"
+        }
       },
-      Variable = {
-        fg = "@foreground.300"
-      },
-      Comment = {
-        italic = true,
-        fg = "@foreground.400"
-      },
-      String = {
-        fg = "@aurora.100"
+      Search = {
+        fg = "@foreground.50",
+        bg = {
+          opacity = 0.25,
+          __xeno_opaque = true,
+          fg = "@cyan.400"
+        }
       }
     }
   },
   integrations = {
     ghostty = {
-      update_config = false,
-      enabled = false
+      enabled = false,
+      update_config = false
     }
   },
 })
