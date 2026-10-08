@@ -117,6 +117,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- Diagnostics for current line (uses global diagnostic config above).
         map('<leader>d', vim.diagnostic.open_float, 'Show line diagnostics')
 
+        -- rename
+        map('<leader>rn', vim.lsp.buf.rename, 'LSP: Rename Symbol')
+
         -- Toggle virtual diagnostic lines (requires plugin that honours virtual_lines).
         vim.keymap.set('n', 'gK', function()
             local new_config = not vim.diagnostic.config().virtual_lines

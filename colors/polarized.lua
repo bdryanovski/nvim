@@ -10,38 +10,34 @@ require("xeno").setup({
   transparent = false,
   foreground = "#c9dde2",
   _custom_colors = {
-    indigo = "#7c93e0",
     teal = "#2ec4b6",
-    violet = "#9b7fd4",
-    aurora = "#3ddc97",
-    ice = "#8ecae6",
-    frost = "#a8e6cf",
     glow_pink = "#e39fc2",
-    cyan = "#4fd9e8"
+    indigo = "#7c93e0",
+    cyan = "#4fd9e8",
+    aurora = "#3ddc97",
+    violet = "#9b7fd4",
+    ice = "#8ecae6",
+    frost = "#a8e6cf"
   },
   highlights = {
     syntax = {
-      Boolean = {
-        fg = "@frost.100"
+      Function = {
+        fg = "@teal.300"
       },
-      Property = {
-        fg = "@ice.300"
-      },
-      Comment = {
-        italic = true,
-        fg = "@foreground.400"
+      String = {
+        fg = "@aurora.100"
       },
       ["@lsp.typemod.property.declaration"] = {
         link = "@property"
       },
-      Keyword = {
-        fg = "@violet.300"
+      ["@property"] = {
+        link = "Property"
       },
       ["@lsp.mod.declaration"] = {
         clear = true
       },
-      ["@lsp.type.keyword"] = {
-        link = "@keyword"
+      Operator = {
+        fg = "@cyan.300"
       },
       ["@keyword"] = {
         link = "Keyword"
@@ -49,11 +45,11 @@ require("xeno").setup({
       ["@lsp.type.type"] = {
         link = "@type"
       },
-      ["@type"] = {
-        link = "Type"
+      Type = {
+        fg = "@cyan.200"
       },
-      ["@lsp.type.function"] = {
-        link = "@function"
+      Variable = {
+        fg = "@foreground.300"
       },
       ["@function"] = {
         link = "Function"
@@ -61,8 +57,8 @@ require("xeno").setup({
       ["@lsp.type.property"] = {
         link = "@property"
       },
-      Function = {
-        fg = "@teal.300"
+      ["@lsp.type.variable"] = {
+        link = "@variable"
       },
       ["@variable"] = {
         link = "Variable"
@@ -73,30 +69,33 @@ require("xeno").setup({
       Punctuation = {
         fg = "@foreground.400"
       },
-      String = {
-        fg = "@aurora.100"
+      ["@punctuation.bracket"] = {
+        link = "Punctuation"
       },
       ["@punctuation"] = {
         link = "Punctuation"
       },
-      ["@operator"] = {
-        link = "Operator"
+      Boolean = {
+        fg = "@frost.100"
       },
       ["@constructor"] = {
         fg = "@foreground.400"
       },
-      Operator = {
-        fg = "@cyan.300"
+      Property = {
+        fg = "@ice.300"
+      },
+      Conditional = {
+        fg = "@indigo.300"
+      },
+      ["@constant.builtin"] = {
+        fg = "@glow_pink.100",
+        bold = true
       },
       Number = {
         fg = "@frost.100"
       },
-      ["@constant.builtin"] = {
-        bold = true,
-        fg = "@glow_pink.100"
-      },
-      Variable = {
-        fg = "@foreground.300"
+      ["@constant"] = {
+        fg = "@frost.200"
       },
       ["@boolean"] = {
         link = "Boolean"
@@ -119,6 +118,10 @@ require("xeno").setup({
       ["@keyword.operator"] = {
         fg = "@cyan.300"
       },
+      Comment = {
+        italic = true,
+        fg = "@foreground.400"
+      },
       ["@keyword.repeat"] = {
         link = "Conditional"
       },
@@ -131,73 +134,70 @@ require("xeno").setup({
       ["@keyword.return"] = {
         link = "Keyword"
       },
-      ["@constant"] = {
-        fg = "@frost.200"
+      ["@type"] = {
+        link = "Type"
       },
       ["@variable.builtin"] = {
         fg = "@indigo.200"
       },
-      ["@property"] = {
-        link = "Property"
+      ["@operator"] = {
+        link = "Operator"
       },
-      ["@punctuation.bracket"] = {
-        link = "Punctuation"
+      ["@lsp.type.function"] = {
+        link = "@function"
       },
-      ["@lsp.type.variable"] = {
-        link = "@variable"
+      ["@lsp.type.keyword"] = {
+        link = "@keyword"
       },
-      Type = {
-        fg = "@cyan.200"
-      },
-      Conditional = {
-        fg = "@indigo.300"
+      Keyword = {
+        fg = "@violet.300"
       }
     },
     editor = {
-      Search = {
-        fg = "@foreground.50",
+      IncSearch = {
         bg = {
-          opacity = 0.25,
-          __xeno_opaque = true,
-          fg = "@cyan.400"
-        }
-      },
-      Visual = {
-        bg = {
-          opacity = 0.18,
-          __xeno_opaque = true,
-          fg = "@aurora.500"
-        }
-      },
-      CursorLineNr = {
-        bold = true,
-        fg = "@frost.100"
+          fg = "@frost.300",
+          opacity = 0.35,
+          __xeno_opaque = true
+        },
+        fg = "@background.950"
       },
       CursorLine = {
         bg = {
+          fg = "@teal.600",
           opacity = 0.06,
-          __xeno_opaque = true,
-          fg = "@teal.600"
+          __xeno_opaque = true
+        }
+      },
+      Search = {
+        bg = {
+          fg = "@cyan.400",
+          opacity = 0.25,
+          __xeno_opaque = true
+        },
+        fg = "@foreground.50"
+      },
+      CursorLineNr = {
+        fg = "@frost.100",
+        bold = true
+      },
+      Visual = {
+        bg = {
+          fg = "@aurora.500",
+          opacity = 0.18,
+          __xeno_opaque = true
         }
       },
       MatchParen = {
-        bold = true,
-        fg = "@frost.100"
-      },
-      IncSearch = {
-        fg = "@background.950",
-        bg = {
-          opacity = 0.35,
-          __xeno_opaque = true,
-          fg = "@frost.300"
-        }
+        fg = "@frost.100",
+        bold = true
       }
     }
   },
   integrations = {
     ghostty = {
-      update_config = false,
-      enabled = false
+      enabled = false,
+      update_config = false
     }
   },
 })
