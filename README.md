@@ -287,8 +287,28 @@ Available schemes:
 - `kanagawa`
 - `catppuccin`
 - `vague`
+- `monoz` (personal, built into this config)
 
 Switch with `:colorscheme <name>`.
+
+### monoz
+
+`monoz` is a personal colorscheme forked from `monoglow-z`. It lives in
+`lua/bdryanovski/monoz/`. The base is monochrome. You can colorize each syntax
+role and set per-role attributes through the `setup` call in
+`plugin/themes.lua`:
+
+- `syntax` maps a role (keyword, conditional, loop, string, comment, type, ...)
+  to an accent name (`red`, `orange`, `yellow`, `green`, `teal`, `cyan`,
+  `blue`, `purple`, `magenta`, `pink`, `glow`), a palette key, or a hex color.
+  Leave a role `false` to keep the monochrome default.
+- `styles` sets attributes per role (`bold`, `italic`, `underline`, ...).
+- `on_colors` and `on_highlights` are escape hatches for anything else.
+
+It covers the plugins this config uses: treesitter, LSP semantic tokens,
+blink.cmp, gitsigns, oil, nvim-tree, snacks, noice, todo-comments, barbecue,
+incline, mini, which-key, telescope, mason, flash, and a matching lualine theme
+(`lualine` theme name `monoz`).
 
 ## Custom Plugins
 

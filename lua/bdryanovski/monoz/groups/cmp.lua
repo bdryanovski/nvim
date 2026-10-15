@@ -1,0 +1,21 @@
+local M = {}
+
+M.url = 'https://github.com/hrsh7th/nvim-cmp'
+
+---@type monoz.HighlightsFn
+function M.get(c, opts)
+    local ret = {
+        CmpItemKind = { fg = c.cmp.kind },
+        CmpGhostText = { fg = c.special.exception },
+        CmpItemAbbr = { fg = c.fg, bg = c.none },
+        CmpItemAbbrMatch = { fg = c.blue2 },
+        CmpItemAbbrMatchFuzzy = { fg = c.blue2 },
+        CmpItemAbbrDeprecated = { fg = c.cmp.deprecated, bg = c.none, strikethrough = true },
+        CmpItemMenu = { fg = c.syntax.comment, bg = c.none },
+    }
+
+    require('bdryanovski.monoz.groups.kinds').kinds(ret, 'CmpItemKind%s')
+    return ret
+end
+
+return M

@@ -321,9 +321,13 @@ Highlights:
 
 - **UI & theme**
   - `plugin/themes.lua` – registers multiple themes:
-    `rose-pine`, `monoglow`, `koda`, `kanagawa`, `catppuccin`, `vague`.
-    Configures each theme, then runs `:colorscheme rose-pine` as the active
-    scheme.
+    `rose-pine`, `monoglow`, `koda`, `kanagawa`, `catppuccin`, `vague`,
+    `monoz`. Configures each theme, then runs `:colorscheme rose-pine` as the
+    active scheme.
+  - `lua/bdryanovski/monoz/` – `monoz`, a personal colorscheme forked from
+    `monoglow-z`. Monochrome base with per-role color and style control via
+    the `syntax` and `styles` tables in the `setup` call. Entry point is
+    `colors/monoz.lua`. Matching lualine theme is `lua/lualine/themes/monoz.lua`.
   - `plugin/lualine.nvim.lua` – configures `lualine.nvim` with an
     abbreviated mode indicator, separators, and minimal sections.
   - `plugin/barbecue.nvim.lua` – sets up `barbecue.nvim` + `nvim-navic` for

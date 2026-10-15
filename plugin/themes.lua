@@ -6,7 +6,6 @@ vim.pack.add({
     'https://github.com/catppuccin/nvim',
     'https://github.com/vague-theme/vague.nvim',
     'https://github.com/kyzabuilds/xeno.nvim',
-    'https://github.com/WTFox/luna.nvim',
 })
 
 require('rose-pine').setup({
@@ -93,6 +92,67 @@ require('monoglow').setup({
     on_colors = function(colors)
         colors.glow = '#fd1b7c'
     end,
+})
+
+-- monoz: personal colorscheme forked from monoglow-z and built into this config.
+-- Lives in lua/bdryanovski/monoz/. Activate with `vim.cmd('colorscheme monoz')`.
+require('bdryanovski.monoz').setup({
+    glow = true, -- bold on Function/Keyword/Operator
+    transparent = false,
+    terminal_colors = true,
+
+    -- Colorize individual syntax roles. Use an accent name ("red", "orange",
+    -- "yellow", "green", "teal", "cyan", "blue", "purple", "magenta", "pink",
+    -- "glow"), a palette key ("blue2", "lack", "gray7"), or a hex like "#ff8800".
+    -- Leave everything `false` for the original monochrome look.
+    syntax = {
+        keyword = false, -- generic keywords
+        keyword_return = false, -- return, yield
+        keyword_exception = false, -- try, catch, throw
+        conditional = 'yellow', -- if, else, switch
+        loop = 'magenta', -- for, while
+        operator = false, -- + - * / (default: glow)
+        func_def = false, -- function definitions
+        func_call = false, -- function calls
+        func_param = false, -- parameters
+        builtin = false, -- builtin functions/modules
+        type = 'pink', -- types
+        type_def = 'red', -- type definitions
+        type_primitive = false, -- int, string, bool
+        string = false, -- strings
+        string_escape = false, -- \n, \t, regex (default: lack)
+        number = false, -- numbers
+        boolean = false, -- true/false (default: blue2)
+        const = false, -- constants
+        const_builtin = false, -- nil/true/false constants
+        var = false, -- variables
+        var_builtin = 'orange', -- this, self
+        var_member = '#ff8800', -- obj.member
+        property = false, -- struct/object properties
+        tag = false, -- html/xml tags
+        punctuation = false, -- delimiters, brackets
+        comment = false, -- comments
+    },
+
+    -- Attribute toggles per role (bold/italic/underline/...).
+    styles = {
+        comments = { italic = true },
+        keywords = {},
+        conditionals = { bold = true },
+        loops = {},
+        functions = {},
+        strings = {},
+        variables = {},
+        numbers = {},
+        booleans = {},
+        types = {},
+        operators = {},
+        properties = {},
+    },
+
+    -- Escape hatches for anything the options above do not cover.
+    on_colors = function(colors) end,
+    on_highlights = function(highlights, colors) end,
 })
 
 require('koda').setup({
@@ -323,191 +383,6 @@ require('vague').setup({
     },
 })
 
-local xeno = require('xeno')
-
-xeno.color('aurora', '#3ddc97')
-xeno.color('teal', '#2ec4b6')
-xeno.color('cyan', '#4fd9e8')
-xeno.color('ice', '#8ecae6')
-xeno.color('frost', '#a8e6cf')
-xeno.color('violet', '#9b7fd4')
-xeno.color('indigo', '#7c93e0')
-xeno.color('glow_pink', '#e39fc2')
-
-xeno.theme('polarized', {
-    background = '#0a141c',
-    accent = '#3ddc97',
-    foreground = '#c9dde2',
-    properties = {
-        contrast = 0.10,
-        chroma = 0.05,
-        lightness = -0.05,
-        variation = 0.10,
-    },
-    integrations = {
-        ghostty = {
-            enabled = false,
-            update_config = false,
-        },
-    },
-
-    highlights = {
-        editor = {
-            CursorLineNr = { fg = '@frost.100', bold = true },
-            MatchParen = { fg = '@frost.100', bold = true },
-            Visual = { bg = xeno.opaque('@aurora.500', 0.18) },
-            CursorLine = { bg = xeno.opaque('@teal.600', 0.06) },
-            Search = { bg = xeno.opaque('@cyan.400', 0.25), fg = '@foreground.50' },
-            IncSearch = { bg = xeno.opaque('@frost.300', 0.35), fg = '@background.950' },
-        },
-
-        syntax = {
-            Comment = { fg = '@foreground.400', italic = true },
-            Keyword = { fg = '@violet.300' },
-            Conditional = { fg = '@indigo.300' },
-            Function = { fg = '@teal.300' },
-            Type = { fg = '@cyan.200' },
-            String = { fg = '@aurora.100' },
-            Number = { fg = '@frost.100' },
-            Boolean = { fg = '@frost.100' },
-            Variable = { fg = '@foreground.300' },
-            Property = { fg = '@ice.300' },
-            Operator = { fg = '@cyan.300' },
-            Punctuation = { fg = '@foreground.400' },
-
-            ['@keyword'] = { link = 'Keyword' },
-            ['@keyword.return'] = { link = 'Keyword' },
-            ['@keyword.function'] = { link = 'Conditional' },
-            ['@keyword.conditional'] = { link = 'Conditional' },
-            ['@keyword.repeat'] = { link = 'Conditional' },
-            ['@keyword.operator'] = { fg = '@cyan.300' },
-            ['@keyword.import'] = { fg = '@teal.400' },
-
-            ['@function'] = { link = 'Function' },
-            ['@function.builtin'] = { fg = '@cyan.100' },
-
-            ['@type'] = { link = 'Type' },
-
-            ['@string'] = { link = 'String' },
-            ['@string.escape'] = { fg = '@ice.100' },
-
-            ['@number'] = { link = 'Number' },
-            ['@boolean'] = { link = 'Boolean' },
-
-            ['@constant'] = { fg = '@frost.200' },
-            ['@constant.builtin'] = { fg = '@glow_pink.100', bold = true },
-
-            ['@variable'] = { link = 'Variable' },
-            ['@variable.builtin'] = { fg = '@indigo.200' },
-
-            ['@property'] = { link = 'Property' },
-
-            ['@constructor'] = { fg = '@foreground.400' },
-
-            ['@operator'] = { link = 'Operator' },
-            ['@punctuation'] = { link = 'Punctuation' },
-            ['@punctuation.bracket'] = { link = 'Punctuation' },
-            ['@punctuation.delimiter'] = { link = 'Punctuation' },
-
-            ['@lsp.type.variable'] = { link = '@variable' },
-            ['@lsp.type.property'] = { link = '@property' },
-            ['@lsp.type.function'] = { link = '@function' },
-            ['@lsp.type.type'] = { link = '@type' },
-            ['@lsp.type.keyword'] = { link = '@keyword' },
-            ['@lsp.mod.declaration'] = { clear = true },
-            ['@lsp.typemod.property.declaration'] = { link = '@property' },
-        },
-    },
-    plugins = {
-        ['ibhagwan/fzf-lua'] = {
-            bg = xeno.background_950, -- Background color
-            fg = xeno.foreground_300, -- Foreground text color
-            border = xeno.background_800, -- Border color
-            prompt_fg = xeno.accent_200, -- Prompt text color
-            pointer_fg = xeno.accent_200, -- Pointer color
-            statusline_bg = xeno.background_950, -- Statusline background
-            statusline_fg = xeno.foreground_100, -- Statusline foreground
-            statusline_nc_bg = xeno.background_900, -- Inactive statusline background
-            statusline_nc_fg = xeno.foreground_300, -- Inactive statusline foreground
-            statusline1_fg = xeno.accent_500, -- Statusline segment 1
-            statusline2_fg = xeno.foreground_100, -- Statusline segment 2
-            statusline3_fg = xeno.foreground_300, -- Statusline segment 3
-        },
-        ['hrsh7th/nvim-cmp'] = {
-            match_fg = xeno.accent_200, -- Matched text color
-            kind_fg = xeno.foreground_100, -- Completion kind color
-            menu_fg = xeno.foreground_200, -- Menu text color
-            item_fg = xeno.foreground_100, -- Item text color
-        },
-        ['Saghen/blink.cmp'] = {
-            label_fg = xeno.foreground_300, -- Label text color
-            match_fg = xeno.accent_300, -- Matched text color
-            kind_fg = xeno.foreground_300, -- Kind icon color
-            source_fg = xeno.foreground_300, -- Source text color
-        },
-        ['SmiteshP/nvim-navic'] = {
-            text_fg = xeno.foreground_200, -- Text color
-            separator_fg = xeno.foreground_200, -- Separator color
-            icon_fg = xeno.accent_500, -- Icon color
-        },
-        ['folke/todo-comments.nvim'] = {
-            note_fg = xeno.accent_500, -- NOTE comment color
-            warn_fg = xeno.yellow, -- WARN comment color
-            fix_fg = xeno.red, -- FIX comment color
-            bg = xeno.background_800, -- Background color
-        },
-        ['nvim-tree/nvim-tree.lua'] = {
-            bg = xeno.background_900, -- Background color
-            fg = xeno.foreground_100, -- Foreground color
-            root_fg = xeno.accent_500, -- Root folder color
-            folder_fg = xeno.foreground_100, -- Folder color
-            git_add_fg = xeno.green, -- Git added color
-            git_modified_fg = xeno.yellow, -- Git modified color
-            git_deleted_fg = xeno.red, -- Git deleted color
-        },
-        ['folke/trouble.nvim'] = {
-            bg = xeno.background_950, -- Background color
-            fg = xeno.foreground_100, -- Foreground color
-        },
-        ['folke/snacks.nvim'] = {
-            bg = xeno.background_950, -- Base UI background
-            fg = xeno.foreground_100, -- Base UI foreground
-            border = xeno.background_800, -- Border color
-
-            notifier_info_fg = xeno.blue, -- Info notification color
-            notifier_warn_fg = xeno.yellow, -- Warning notification color
-            notifier_error_fg = xeno.red, -- Error notification color
-            notifier_debug_fg = xeno.purple, -- Debug notification color
-            notifier_trace_fg = xeno.foreground_400, -- Trace notification color
-
-            dashboard_bg = xeno.background_950, -- Dashboard background
-            dashboard_header_fg = xeno.accent_500, -- Dashboard header color
-            dashboard_desc_fg = xeno.foreground_300, -- Dashboard description color
-            dashboard_key_fg = xeno.accent_200, -- Dashboard key color
-
-            picker_bg = xeno.background_950, -- Picker background
-            picker_match_fg = xeno.accent_200, -- Picker match color
-        },
-        ['folke/which-key.nvim'] = {
-            key_fg = xeno.accent_500, -- Key color
-            group_fg = xeno.foreground_300, -- Group color
-            bg = xeno.background_900, -- Background color
-            border_fg = xeno.background_900, -- Border color
-        },
-    },
-})
-
-require('luna').setup({
-    transparent = false,
-    accent = 1.0, -- 0-1, blends syntax accents toward grey_light; 1 = full color
-    plugins = {
-        all = true, -- enable every plugin integration unconditionally
-        auto = true, -- when plugins.all is false, autodetect via lazy.nvim
-    },
-    on_colors = function(colors) end,
-    on_highlights = function(highlights, colors) end,
-})
-
 -- Load scheme
 
-vim.cmd('colorscheme luna')
+vim.cmd('colorscheme monoz')
